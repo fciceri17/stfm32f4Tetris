@@ -1,0 +1,16 @@
+/miosix-kernel/miosix/kernel
+/miosix-kernel/miosix/stdlib_integration
+/miosix-kernel/miosix/util
+/miosix-kernel/miosix/libmiosix.a
+/miosix-kernel/miosix/arch
+/miosix-kernel/miosix/config
+/miosix-kernel/miosix/e20
+/miosix-kernel/miosix/filesystem
+/miosix-kernel/miosix/interfaces
+/miosix-kernel/miosix_np_2
+/miosix-kernel/mxgui/_tools
+/miosix-kernel/mxgui/drivers
+/miosix-kernel/mxgui/fonts
+/miosix-kernel/mxgui/level2
+/miosix-kernel/mxgui/_doc
+/miosix-kernel/mxgui/_examples
