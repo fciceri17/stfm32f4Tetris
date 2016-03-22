@@ -10,13 +10,18 @@ MovementDraw::MovementDraw(){
 void MovementDraw::drawGrid(Grid gr){
 	DrawingContext dc(Display::instance());
 	clearArea();
-	List pieceSet = gr.getPieces;
-	for(piece curr : pieceSet){
+	vector<Block> blockSet = gr.getBlocks();
+	for(Block curr : blockSet){
 		for(int i=0;i<MATX;i++){
 			for(int z=0; z<MATY; z++){
-				if(curr[z][i]==1){
-					dc.clear(Point(i*OFFSET+x,z*OFFSET+y), Point(i*OFFSET+OFFSET+x-1,z*OFFSET+OFFSET-1+y), c);
-					dc.drawRectangle(Point(i*OFFSET+x,z*OFFSET+y), Point(i*OFFSET+OFFSET+x-1,z*OFFSET+OFFSET-1+y), Color(BLACK));
+				if(curr.getStructure()[z][i]==1){
+					int x1,x2,y1,y2;
+					x1 = i*OFFSET+20*curr.getX();
+					x2 = i*OFFSET+OFFSET+20*curr.getX()-1;
+					y1 = z*OFFSET+20*curr.getY();
+					y2 = z*OFFSET+OFFSET-1+20*curr.getY();
+					dc.clear(Point(x1,y1), Point(x2,y2), WHITE);
+					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
 				}
 			}
 		}

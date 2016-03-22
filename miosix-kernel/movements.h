@@ -18,6 +18,8 @@
 
 #include "mxgui/entry.h"
 #include "mxgui/display.h"
+#include "block.h"
+#include "grid.h"
 
 using namespace mxgui;
 
@@ -25,11 +27,10 @@ class MovementDraw
 {
 	private:
 	void clearArea();
-	//mxgui::DrawingContext dc;
 	
 	public:
 	MovementDraw();
-	//void drawGrid(Grid gr);
+	void drawGrid(Grid gr);
 	void drawInit();
 	void buttonPress(int ID);
 	void updateScore(int score);

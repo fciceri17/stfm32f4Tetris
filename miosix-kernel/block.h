@@ -17,6 +17,6 @@ class Block{
 		int** getStructure();
 		void rotate();
 		void translate(int d);	
-}
+};
 
 #endif //H_BLOCK
