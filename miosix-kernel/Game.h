@@ -2,7 +2,13 @@
 #define	GAME
 #define MULTIPLIER 5
 namespace std{
-	class Game{
+	public class Game{
+		private:
+			Input in;
+			Graphics g;
+			Grid grid;
+			int score;
+		
 		public:		
 			/**
 			*	Constructor, create a new game initializing input and graphic reference
