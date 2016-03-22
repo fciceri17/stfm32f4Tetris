@@ -3,28 +3,21 @@
 #include "Graphic.cpp"
 
 
-namespace std{
-	class Game{
-		private:
-			Input in;
-			Graphics g;
-			Grid grid;
-			int score;
-			
+namespace std{			
+	public:
+		Game::Game(){
+			grid.Grid();
+			in.Input(grid);
+			g.Graphic();
+			score = 0;
+		}
 		
-		public:
-			Game::Game(){
-				grid.Grid();
-				in.Input(grid);
-				g.Graphic();
-				score = 0;
+		void Game::start(){
+			while(grid.addBlock()){
+				while(!grid.nextBlock());//da sostituire con movimento verso il basso
+				score += MULTIPLIER;
+				
 			}
-			
-			void Game::start(){
-				while(grid.addBlock()){
-					while(!grid.nextBlock());
-					score += MULTIPLIER;
-				}
-			}
+		}
 	}
 }
