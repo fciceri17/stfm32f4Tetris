@@ -58,6 +58,10 @@ int Block::getY(){
 	return y;
 }
 
+int** Block::getStructure(){
+	return structure;
+}
+
 /*
 * This method trasposes the block structure, rotating the block.
 */

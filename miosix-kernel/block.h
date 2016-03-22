@@ -14,6 +14,7 @@ class Block{
 		Block(int blockID);
 		int getX();
 		int getY();
+		int** getStructure();
 		void rotate();
 		void translate(int d);	
 }
