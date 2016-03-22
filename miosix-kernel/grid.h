@@ -1,13 +1,20 @@
 #ifndef GRID
 #define GRID
-
-namespace std{
+#include <vector>
+using namespace std;
 	public class Grid{
+		private:
+			vector <Block> blocks;
+			
+			void updateGrid();
+			void deleteRow();
+			bool canAddBlock();
 		public: 
+			Grid();
 			void rotate();
 			void translate(int direction);
 			bool addBlock();
-			void deleteRow();
-			void updateGrid();
+			vector getBlocks();
 	}
-}
+
+	#endif //GRID

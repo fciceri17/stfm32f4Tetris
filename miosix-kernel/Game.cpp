@@ -3,7 +3,7 @@
 #include "Graphic.cpp"
 
 
-namespace std{			
+using namespace std;			
 	public:
 		Game::Game(){
 			grid.Grid();
@@ -18,6 +18,5 @@ namespace std{
 				score += MULTIPLIER;
 				
 			}
-		}
-	}
+		}	}
 }

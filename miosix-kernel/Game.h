@@ -1,7 +1,7 @@
 #ifndef GAME
 #define	GAME
 #define MULTIPLIER 5
-namespace std{
+using namespace std;
 	public class Game{
 		private:
 			Input in;
@@ -19,5 +19,5 @@ namespace std{
 			*/
 			run();			
 	}
-}
+
 #endif //GAME
