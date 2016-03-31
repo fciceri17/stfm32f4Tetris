@@ -68,19 +68,28 @@ int** Block::getStructure(){
 void Block::rotate(){
 	int tmp[MATX][MATY];
 	for(int i; i < MATX; i++)
-		for(int j; j < MATY; j++)
+		for(int j; j < MATY; j++){
 			tmp[j][i]=structure[i][j];
+		}
 	for(int i; i < MATX; i++)
-		for(int j; j < MATY; j++)
+		for(int j; j < MATY; j++){
 			structure[i][j]=tmp[i][j];
+		}
 }
 
 /*
 * This method changes the x coordinate of the block, according to the direction passed.
 */
 void Block::translate(int d){
-	if(d == TRANSLATEDX)
+	if(d == TRANSLATEDX){
 		x++;
-	else if(d == TRANSLATESX)
-		x--;	
+	}
+	else{
+		if(d == TRANSLATESX){
+			x--;	
+		}
+		else{
+			
+		}
+	}
 }

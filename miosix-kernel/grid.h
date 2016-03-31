@@ -1,14 +1,12 @@
 #ifndef GRID
 #define GRID
 #include <vector>
-#include "block.h"
-
 using namespace std;
-	class Grid{
+	public class Grid{
 		private:
-			vector<Block> blocks;
+			vector <Block> blocks;
 			
-			void updateGrid();
+			
 			void deleteRow();
 			bool canAddBlock();
 		public: 
@@ -16,7 +14,7 @@ using namespace std;
 			void rotate();
 			void translate(int direction);
 			bool addBlock();
-			vector<Block> getBlocks();
-	};
+			vector getBlocks();
+	}
 
 	#endif //GRID
