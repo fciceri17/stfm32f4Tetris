@@ -4,7 +4,7 @@
 	void translate(int direction){
 		
 	}
-	bool addBlock(){
+	bool Grid::addBlock(){
 		bool ret = true;
 		Block b(rand%5);
 		if(canAddBlock(b))
@@ -14,11 +14,11 @@
 		return ret;
 	}	
 	
-	vector getBlocks(){
+	vector Grid::getBlocks(){
 		return blocks;
 	}
 
-	void  rotate(){
+	void  Grid::rotate(){
 		Block last = blocks.pop_back(); //modifing the last block inserted, removed for collision check
 		Block tmp = last.rotate();
 		if(collision(tmp)){
@@ -29,7 +29,7 @@
 		}		
 	}
 	
-	void translate(int dir){
+	void Grid::translate(int dir){
 		Block last = blocks.pop_back(); //modifing the last block inserted, removed for collision check
 		Block tmp = last.translate(dir);
 		if(collision(tmp)){
@@ -40,7 +40,7 @@
 		}		
 	}
 	
-	bool collision(Block newBlock){
+	bool Grid::collision(Block newBlock){
 		vector<Block> myBlocks = getBlocks();
 		
 		int checker[GRIDX][GRIDY]; //initialize test grid
