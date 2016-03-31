@@ -6,7 +6,7 @@ using namespace std;
 		private:
 			vector <Block> blocks;
 			
-			
+			bool collision(Block newBlock);
 			void deleteRow();
 			bool canAddBlock();
 		public: 

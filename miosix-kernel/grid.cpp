@@ -39,3 +39,36 @@
 			blocks.push_back(tmp);
 		}		
 	}
+	
+	bool collision(Block newBlock){
+		vector<Block> myBlocks = getBlocks();
+		
+		int checker[GRIDX][GRIDY]; //initialize test grid
+		for(int i=0;i<GRIDX;i++){
+			for(int j=0;<GRIDY;j++){
+				checker[i][j] = 0;
+			}
+		}
+		int temp[4][4] = newBlock.getStructure();
+		for(int i=0;i<4;i++){
+			for(int j=0;<4;j++){
+				checker[newBlock.getX()+i][newBlock.getY()+j] += temp[i][j]; //add new block to test grid
+			}
+		}
+		
+		for(Block curr : myBlocks){
+			temp = curr.getStructure();
+			for(int i=0;i<4;i++){
+				for(int j=0;<4;j++){
+					checker[curr.getX()+i][curr.getY()+j] += temp[i][j]; //add currently iterating block
+				}
+			}
+		}
+		
+		for(int i=0;i<GRIDX;i++){
+			for(int j=0;<GRIDY;j++){
+				if(checker[i][j] > 1){ return true;}
+			}
+		}
+		return false;
+	}
