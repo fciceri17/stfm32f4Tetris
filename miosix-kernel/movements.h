@@ -7,6 +7,8 @@
 #define BUTTON2 2
 
 #define BLACK 0
+#define GREEN 2016
+#define BLUE 31
 #define WHITE 65535
 
 #define DISPH 319

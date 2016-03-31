@@ -31,17 +31,20 @@ void MovementDraw::drawGrid(Grid gr){
 	
 void MovementDraw::drawInit(){
 	DrawingContext dc(Display::instance());
-	dc.clear(WHITE);
+	dc.clear(BLACK);
 	
 	//draw empty top bar in black
+	
+	dc.clear(Point(0,0), Point(DISPW,TOPH), Color(GREEN));
 	dc.drawRectangle(Point(0,0), Point(DISPW,TOPH), Color(BLACK));
 	
 	//draw bottom left button
-	dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2,DISPH), Color(BLACK));
+	dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLUE));
+	dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
 	
 	//draw bottom right button
-	dc.drawRectangle(Point(DISPW/2,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
-
+	dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
+	dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
 
 }
 
@@ -54,7 +57,11 @@ void MovementDraw::clearArea(){
 }
 
 
-void updateScore(int score){
+void MovementDraw::updateScore(int score){
+	DrawingContext dc(Display::instance());
 	//TODO make text padded top right
+	
+	dc.setTextColor	(BLACK, GREEN);	 
+	dc.write(Point(DISPW - DISPW/4, 5), "00112345");
 
 }
