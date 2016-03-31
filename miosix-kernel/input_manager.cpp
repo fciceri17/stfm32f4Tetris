@@ -1,4 +1,8 @@
 #include "input.h"
+#include "movements.h"
+#include <thread>
+
+using namespace std;
 
 InputManager::InputManager(Grid * g){
 	grid = g;
@@ -12,14 +16,14 @@ InputManager::InputManager(Grid * g){
 */
 void InputManager::gameOver(){
 	exit = true;
-	t.join();
+	
 }
 
 /*
 * This method starts the thread execution.
 */
 void InputManager::startListening(){
-	t(run);
+	thread t(run);
 }
 
 /*
@@ -28,6 +32,7 @@ void InputManager::startListening(){
 * NEED TO DEFINE THE BUTTON COORDINATES! (buttonDX and buttonSX are dummy buttons)
 */
 void InputManager::run(){
+	DrawingContext dc(Display::instance());
 	while(!exit){
 		Event e = InputHandler::instance().popEvent();
 		switch(e.getEvent()){
@@ -35,23 +40,25 @@ void InputManager::run(){
 			case EventType::TouchMove:
 				break;
 			case EventType::TouchDown:
-				if(within(e.getPoint(), buttonDX)){
-					DrawingContext dc(Display::instance());
-					drawButton(dc, buttonDX, true); // draws the shadow around the button to show it is pressed
-				}else if (whithin(e.getPoint(), buttonSX)){
-					DrawingContext dc(Display::instance());
-					drawButton(dc, buttonSX, true); // draws the shadow around the button to show it is pressed
+				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH)){ //im in the left button
+					dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(RED));
+					dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
+				}else if (whithin(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
+					dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
+					dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
 				}
 			
 				break;
 			case EventType::TouchUp:
-				if(within(e.getPoint(), buttonDX)){
-					grid.translate(DIRECTIONDX);
-				}else if (whithin(e.getPoint(), buttonSX)){
-					grid.translate(DIRECTIONSX);
+				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){
+					//grid.translate(DIRECTIONSX);
+				}else if (whithin(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){
+					//grid.translate(DIRECTIONDX);
+				/*
 				}else if (within e.getPoint(), rotationRectangle)){
 					grid.rotate();
 				}
+				*/
 				break;
 			default:
 				break;
