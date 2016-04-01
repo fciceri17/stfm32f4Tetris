@@ -20,7 +20,9 @@
 	bool Grid::canAddBlock(){
 		bool ret=false;
 		Block last = blocks.back();
+		Block tmp = last;
 		blocks.pop_back();
+		tmp.translate(2);
 		if(collision(tmp)){
 			ret = true;
 		}

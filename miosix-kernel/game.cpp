@@ -13,6 +13,7 @@ void Game::startGame(){
 	in.startListening();
 	while(grid.addBlock()){
 		while(!grid.canAddBlock());//da sostituire con movimento verso il basso
+		grid.addBlock();
 		score += MULTIPLIER;
 		md.drawGrid(grid);
 		
