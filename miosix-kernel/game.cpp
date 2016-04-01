@@ -12,10 +12,10 @@ void Game::startGame(){
 	md.drawInit();
 	in.startListening();
 	while(grid.addBlock()){
-		while(!grid.addBlock()){//da sostituire con movimento verso il basso
-			score += MULTIPLIER;
-			md.drawGrid(grid);
-		}
+		while(!grid.canAddBlock());//da sostituire con movimento verso il basso
+		score += MULTIPLIER;
+		md.drawGrid(grid);
+		
 	}
 	in.gameOver();
 }

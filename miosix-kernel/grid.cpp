@@ -17,7 +17,17 @@
 		return blocks;
 	}
 	
-
+	bool Grid::canAddBlock(){
+		bool ret=false;
+		Block last = blocks.back();
+		blocks.pop_back();
+		if(collision(tmp)){
+			ret = true;
+		}
+		blocks.push_back(last);
+		return ret;
+	}
+	
 	void  Grid::rotate(){
 		Block last = blocks.back(); //modifing the last block inserted, removed for collision check
 		blocks.pop_back();
