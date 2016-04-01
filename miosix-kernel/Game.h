@@ -6,6 +6,7 @@
 #include "input_manager.h"
 
 using namespace std;
+
 class Game{
 	private:
 		InputManager in;

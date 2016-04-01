@@ -1,9 +1,8 @@
-#include grid.h
+#include "grid.h"
 #include <ctime>
+
 	Grid::Grid(){}
-	void translate(int direction){
-		
-	}
+	
 	bool Grid::addBlock(){
 		bool ret = true;
 		Block b(rand%5);

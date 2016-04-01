@@ -37,7 +37,6 @@ class MovementDraw
 	void buttonPress(int ID);
 	void updateScore(int score);
 	
-	
 };
 
 #endif
