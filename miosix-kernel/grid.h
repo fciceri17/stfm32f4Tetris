@@ -16,12 +16,12 @@ class Grid{
 		vector <Block> blocks;
 		bool collision(Block newBlock);
 		void deleteRow();
-		bool canAddBlock();
 	public: 
 		Grid();
 		void rotate();
 		void translate(int direction);
 		bool addBlock();
+		bool canAddBlock();
 		vector<Block> getBlocks();
 
 };
