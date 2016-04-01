@@ -8,7 +8,7 @@
 class Block{
 	private:
 		int x, y;
-		int structure[MATX][MATY];
+		int** structure;
 
 	public:
 		Block(int blockID);

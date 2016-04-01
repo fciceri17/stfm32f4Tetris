@@ -4,50 +4,53 @@
 * The constructor creates the structure of the block based on the blockID.
 */
 Block::Block(int blockID){
-	switch(blockID){
+	/*switch(blockID){
 		case 0:				// I block
 			structure = {
-				1, 0, 0, 0
-				1, 0, 0, 0
-				1, 0, 0, 0
+				1, 0, 0, 0,
+				1, 0, 0, 0,
+				1, 0, 0, 0,
 				1, 0, 0, 0
 			};
 			break;
 		case 1:				// L block
 			structure = {
-				1, 0, 0, 0
-				1, 0, 0, 0
-				1, 1, 0, 0
+				1, 0, 0, 0,
+				1, 0, 0, 0,
+				1, 1, 0, 0,
 				0, 0, 0, 0
 			};
 			break;
 		case 2:				// T block
 			structure = {
-				1, 1, 1, 0
-				0, 1, 0, 0
-				0, 0, 0, 0
+				1, 1, 1, 0,
+				0, 1, 0, 0,
+				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
 			break;
 		case 3:				// Z block
 			structure = {
-				1, 1, 0, 0
-				0, 1, 1, 0
-				0, 0, 0, 0
+				1, 1, 0, 0,
+				0, 1, 1, 0,
+				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
 			break;
 		case 4:				// O bock
 			structure = {
-				1, 1, 0, 0
-				1, 1, 0, 0
-				0, 0, 0, 0
+				1, 1, 0, 0,
+				1, 1, 0, 0,
+				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
 			break;
 		default:			// blockID not matching, no block can be created
 			break;
-	}	
+	}	*/
+	
+	x = 0;
+	y = 0;
 }
 
 int Block::getX(){

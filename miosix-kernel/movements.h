@@ -20,7 +20,6 @@
 
 #include "mxgui/entry.h"
 #include "mxgui/display.h"
-#include "block.h"
 #include "grid.h"
 
 using namespace mxgui;

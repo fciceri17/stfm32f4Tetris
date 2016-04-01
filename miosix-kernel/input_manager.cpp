@@ -1,8 +1,9 @@
-#include "input.h"
+#include "input_manager.h"
 #include "movements.h"
-#include <thread>
+//#include <thread>
 
 using namespace std;
+using namespace mxgui;
 
 InputManager::InputManager(Grid * g){
 	grid = g;
@@ -40,22 +41,23 @@ void InputManager::run(){
 			case EventType::TouchMove:
 				break;
 			case EventType::TouchDown:
-				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH)){ //im in the left button
+				/*if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){ //im in the left button
 					dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(RED));
 					dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
-				}else if (whithin(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
+				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
 					dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
 					dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
-				}
+				}*/
 			
 				break;
 			case EventType::TouchUp:
 				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){
 					//grid.translate(DIRECTIONSX);
-				}else if (whithin(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){
+				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){
 					//grid.translate(DIRECTIONDX);
-				/*
-				}else if (within e.getPoint(), rotationRectangle)){
+					
+				}/*
+				else if (within e.getPoint(), rotationRectangle)){
 					grid.rotate();
 				}
 				*/

@@ -14,6 +14,7 @@ class InputManager{
 		bool exit;
 		void run();
 	public:
+		InputManager();
 		InputManager(Grid* g);
 		void startListening();
 		void gameOver();
