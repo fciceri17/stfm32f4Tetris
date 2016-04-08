@@ -5,6 +5,11 @@
 using namespace std;
 using namespace mxgui;
 
+InputManager::InputManager(){
+	grid=NULL;
+	exit=false;//TODO
+}
+
 InputManager::InputManager(Grid * g){
 	grid = g;
 	exit = false;
@@ -24,7 +29,13 @@ void InputManager::gameOver(){
 * This method starts the thread execution.
 */
 void InputManager::startListening(){
-	thread t(run);
+	pthread_create(&thread,NULL,&InputManager::doRun,this);
+}
+
+void *InputManager::doRun(void *arg)
+{
+	reinterpret_cast<InputManager*>(arg)->run();
+	return NULL;
 }
 
 /*
