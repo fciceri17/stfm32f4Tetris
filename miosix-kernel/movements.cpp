@@ -8,7 +8,6 @@ using namespace miosix;
 using namespace std;
 
 MovementDraw::MovementDraw(){
-	savedScore=0;
 }
 
 void MovementDraw::drawGrid(Grid gr){

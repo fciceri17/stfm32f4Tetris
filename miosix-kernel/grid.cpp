@@ -18,6 +18,7 @@
 	}
 	
 	bool Grid::canAddBlock(){
+
 		bool ret=false;
 		Block last = blocks.back();
 		Block tmp = last;

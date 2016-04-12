@@ -8,11 +8,13 @@ using namespace mxgui;
 InputManager::InputManager(){
 	grid=NULL;
 	exit=false;//TODO
+	
 }
 
-InputManager::InputManager(Grid * g){
+InputManager::InputManager(Grid * g, MovementDraw move){
 	grid = g;
 	exit = false;
+	md = move;
 	
 }
 
@@ -29,7 +31,7 @@ void InputManager::gameOver(){
 * This method starts the thread execution.
 */
 void InputManager::startListening(){
-	pthread_create(&thread,NULL,&InputManager::doRun,this);
+	pthread_create(&thread,NULL,InputManager::doRun,this);
 }
 
 void *InputManager::doRun(void *arg)
@@ -52,14 +54,15 @@ void InputManager::run(){
 			case EventType::TouchMove:
 				break;
 			case EventType::TouchDown:
-				/*if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){ //im in the left button
+				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){ //im in the left button
 					dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(RED));
 					dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
 				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
 					dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
 					dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
-				}*/
-			
+				}
+				
+				//TODO MOVE AND TRIGGER
 				break;
 			case EventType::TouchUp:
 				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){
