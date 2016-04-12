@@ -16,7 +16,7 @@ void Game::startGame(){
 		grid.addBlock();
 		score += MULTIPLIER;
 		md.drawGrid(grid);
-		
+		md.updateScore(score);
 	}
 	in.gameOver();
 }

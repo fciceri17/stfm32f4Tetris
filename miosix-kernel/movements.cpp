@@ -1,10 +1,14 @@
 #include "movements.h"
 #include "mxgui/display.h"
+#include <string>
+#include <sstream>
 
 using namespace mxgui;
 using namespace miosix;
+using namespace std;
 
 MovementDraw::MovementDraw(){
+	savedScore=0;
 }
 
 void MovementDraw::drawGrid(Grid gr){
@@ -35,15 +39,19 @@ void MovementDraw::drawInit(){
 	
 	//draw empty top bar in black
 	
-	dc.clear(Point(0,0), Point(DISPW,TOPH), Color(GREEN));
+	dc.clear(Point(0,0), Point(DISPW,TOPH), Color(CYAN));
 	dc.drawRectangle(Point(0,0), Point(DISPW,TOPH), Color(BLACK));
 	
 	//draw bottom left button
-	dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLUE));
+	dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(CYAN));
 	dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
 	
+	//draw left button arrow
+	dc.clear(Point(DISPW/2*3/8,DISPH-BUTTONH/2-1), Point(DISPW/2*5/8,DISPH-BUTTONH/2+1), Color(BLACK));
+	dc.drawRectangle(Point(DISPW/2*3/8,DISPH-BUTTONH/2-1), Point(DISPW/2*5/8,DISPH-BUTTONH/2+1), Color(BLACK));
+	
 	//draw bottom right button
-	dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
+	dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(CYAN));
 	dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
 
 }
@@ -59,9 +67,22 @@ void MovementDraw::clearArea(){
 
 void MovementDraw::updateScore(int score){
 	DrawingContext dc(Display::instance());
-	//TODO make text padded top right
-	
-	dc.setTextColor	(BLACK, GREEN);	 
-	dc.write(Point(DISPW - DISPW/4, 5), "00112345");
+	string str = NumberToString(score);
+	padTo(str, 8);
+	const char * c = str.c_str();
+	dc.setTextColor	(BLACK, CYAN);	 
+	dc.write(Point(DISPW - DISPW/4, 5), c);
+}
 
+
+string MovementDraw::NumberToString(int number){
+	 ostringstream s;
+	 s << number;
+	 return s.str();
+}
+
+void MovementDraw::padTo(std::string &str, const size_t num){
+	const char paddingChar = '0';
+    if(num > str.size())
+    	str.insert(0, num - str.size(), paddingChar);
 }

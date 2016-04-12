@@ -7,8 +7,13 @@
 #define BUTTON2 2
 
 #define BLACK 0
-#define GREEN 2016
 #define BLUE 31
+#define GREEN 2016
+#define CYAN 2045
+#define PURPLE 30730
+#define MAGENTA 30751
+#define RED 63488
+#define YELLOW 65504
 #define WHITE 65535
 
 #define DISPH 319
@@ -28,6 +33,8 @@ class MovementDraw
 {
 	private:
 	void clearArea();
+	string NumberToString(int number);
+	void padTo(std::string &str, const size_t num);
 	
 	public:
 	MovementDraw();
