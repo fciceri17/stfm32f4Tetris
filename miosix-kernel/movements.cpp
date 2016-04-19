@@ -22,6 +22,9 @@ void MovementDraw::drawGrid(Grid gr){
 					int x1,x2,y1,y2;
 					x1 = i*OFFSET+20*curr.getX()+1;
 					x2 = i*OFFSET+OFFSET+20*curr.getX()+1;
+					if(x2>239)
+						x2=239;
+					updateScore(x2);
 					y1 = (z-1)*OFFSET+20*curr.getY()+TOPH;
 					y2 = (z-1)*OFFSET+OFFSET-1+20*curr.getY()+TOPH+1;
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));

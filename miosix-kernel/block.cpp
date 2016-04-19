@@ -4,6 +4,23 @@
 /*
 * The constructor creates the structure of the block based on the blockID.
 */
+
+Block::Block(int xC, int yC){
+
+int structure[4][4] = {
+				1, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0
+			};
+			copyArr(structure, structBlock);	
+		}
+	x=xC;
+	y=yC;
+
+}
+
+
 Block::Block(int blockID){
 	switch(blockID){
 		case 0:				// I block
@@ -14,7 +31,6 @@ Block::Block(int blockID){
 				1, 0, 0, 0,
 				1, 0, 0, 0
 			};
-			bottom = 3;
 			copyArr(structure, structBlock);	
 		}
 			break;
@@ -26,7 +42,6 @@ Block::Block(int blockID){
 				1, 1, 0, 0,
 				0, 0, 0, 0
 			};
-			bottom = 2;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -38,7 +53,6 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
-			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -50,7 +64,6 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
-			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -62,7 +75,6 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
-			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -81,9 +93,22 @@ int Block::getY(){
 	return y;
 }
 
-
 int Block::getBottom(){
-	return bottom;
+	int x=0;
+	for(int i=0;i<4;i++)
+		for(int j=0;j<4;j++)
+			if(x<i && structBlock[i][j]==1)
+				x=i;
+	return x;
+}
+
+int Block::getSide(){
+	int x=0;
+	for(int i=0;i<4;i++)
+		for(int j=0;j<4;j++)
+			if(x<j && structBlock[i][j]==1)
+				x=j;
+	return x;
 }
 
 int* Block::getStructure(){
@@ -93,18 +118,31 @@ int* Block::getStructure(){
 
 
 /*
-* This method trasposes the block structure, rotating the block.
+* This method rotates the block by 90.
 */
 void Block::rotate(){
 	int tmp[MATX][MATY];
-	for(int i; i < MATX; i++)
-		for(int j; j < MATY; j++){
-			tmp[j][i]=structBlock[i][j];
+	for(int i=0; i < MATX; i++)
+		for(int j=0; j < MATY; j++){
+			tmp[i][j]=structBlock[3-j][i];
 		}
-	for(int i; i < MATX; i++)
-		for(int j; j < MATY; j++){
-			structBlock[i][j]=tmp[i][j];
+	int x,y;
+	x=3;
+	y=3;
+	for(int i=0; i < MATX; i++)
+		for(int j=0; j < MATY; j++){
+			structBlock[i][j]=0;
+			if(tmp[i][j]==1 && i<y)
+				y=i;
+			if(tmp[i][j]==1 && j<x)
+				x=j;
 		}
+		
+	for(int i=0; i < MATX-y; i++)
+		for(int j=0; j < MATY-x; j++){
+			structBlock[i][j]=tmp[i+y][j+x];
+		}
+		
 }
 
 void Block::copyArr(int src[][4], int dest[][4]){

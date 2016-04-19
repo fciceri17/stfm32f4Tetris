@@ -70,6 +70,7 @@ void InputManager::run(){
 				}
 				else if (within (e.getPoint(), Point(0,TOPH), Point(DISPW,DISPH-BUTTONH))){
 					grid->rotate();
+					md.drawGrid(*grid);
 				}
 				break;
 			default:
