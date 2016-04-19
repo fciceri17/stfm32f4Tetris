@@ -119,38 +119,37 @@
 		}
 	}
 	
-	
+
 	bool Grid::collision(Block newBlock){
 		vector<Block> myBlocks = getBlocks();
-		
-		int checker[GRIDX][GRIDY]; //initialize test grid
-		for(int i=0;i<GRIDX;i++){
-			for(int j=0;j<GRIDY;j++){
-				checker[i][j] = 0;
-			}
-		}
-		int* temp = newBlock.getStructure();
-		for(int i=0;i<4;i++){
-			for(int j=0;j<4;j++){
-				checker[newBlock.getX()+i][newBlock.getY()+j] += *(temp+4*j+i); //add new block to test grid
-			}
-		}
-		
-		for(Block curr : myBlocks){
-			temp = curr.getStructure();
-			for(int i=0;i<4;i++){
-				for(int j=0;j<4;j++){
-					checker[curr.getX()+i][curr.getY()+j] += *(temp+4*j+i); //add currently iterating block
+		if(newBlock.getBottom()+newBlock.getY()<=GRIDY && newBlock.getSide()+newBlock.getX()<GRIDX && newBlock.getX()>=0){
+			int checker[GRIDX][GRIDY]; //initialize test grid
+			for(int i=0;i<GRIDX;i++){
+				for(int j=0;j<GRIDY;j++){
+					checker[i][j] = 0;
 				}
 			}
-		}
-		
-		for(int i=0;i<GRIDX;i++){
-			for(int j=0;j<GRIDY;j++){
-				if(checker[i][j] > 1){ return true;}
+			int* temp = newBlock.getStructure();
+			for(int i=0;i<4;i++){
+				for(int j=0;j<4;j++){
+					checker[newBlock.getX()+i][newBlock.getY()+j] += *(temp+4*j+i); //add new block to test grid
+				}
 			}
-		}
-		if(newBlock.getBottom()+newBlock.getY()<=GRIDY){
+			
+			for(Block curr : myBlocks){
+				temp = curr.getStructure();
+				for(int i=0;i<4;i++){
+					for(int j=0;j<4;j++){
+						checker[curr.getX()+i][curr.getY()+j] += *(temp+4*j+i); //add currently iterating block
+					}
+				}
+			}
+			
+			for(int i=0;i<GRIDX;i++){
+				for(int j=0;j<GRIDY;j++){
+					if(checker[i][j] > 1){ return true;}
+				}
+			}
 			return false;
 		}else{
 			return true;
