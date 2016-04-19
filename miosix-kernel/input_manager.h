@@ -17,7 +17,6 @@ class InputManager{
 		bool exit;
 		void run();
 		MovementDraw md;
-		
 		static void* doRun(void *arg);
 		
 	public:

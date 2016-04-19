@@ -6,16 +6,14 @@ using namespace std;
 using namespace mxgui;
 
 InputManager::InputManager(){
-	grid=NULL;
-	exit=false;//TODO
-	
+	grid = NULL;
+	exit = false;
 }
 
 InputManager::InputManager(Grid * g, MovementDraw move){
 	grid = g;
 	exit = false;
 	md = move;
-	
 }
 
 /*
@@ -24,7 +22,7 @@ InputManager::InputManager(Grid * g, MovementDraw move){
 */
 void InputManager::gameOver(){
 	exit = true;
-	
+	pthread_join(thread, NULL);
 }
 
 /*
@@ -46,7 +44,6 @@ void *InputManager::doRun(void *arg)
 * NEED TO DEFINE THE BUTTON COORDINATES! (buttonDX and buttonSX are dummy buttons)
 */
 void InputManager::run(){
-	DrawingContext dc(Display::instance());
 	while(!exit){
 		Event e = InputHandler::instance().popEvent();
 		switch(e.getEvent()){
@@ -55,26 +52,25 @@ void InputManager::run(){
 				break;
 			case EventType::TouchDown:
 				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){ //im in the left button
-					dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(RED));
-					dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
+					md.drawButton(1);
 				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
-					dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
-					dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
+					md.drawButton(2);
 				}
 				
 				//TODO MOVE AND TRIGGER
 				break;
 			case EventType::TouchUp:
 				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){
-					//grid.translate(DIRECTIONSX);
+					grid->translate(TRANSLATESX);
+					md.drawGrid(*grid);
 				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){
-					//grid.translate(DIRECTIONDX);
+					grid->translate(TRANSLATEDX);
+					md.drawGrid(*grid);
 					
-				}/*
-				else if (within e.getPoint(), rotationRectangle)){
-					grid.rotate();
 				}
-				*/
+				else if (within e.getPoint(), Point(0,TOPH), Point(DISPW,DISPH-BUTTONH))){
+					grid->rotate();
+				}
 				break;
 			default:
 				break;

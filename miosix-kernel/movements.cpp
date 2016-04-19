@@ -85,3 +85,14 @@ void MovementDraw::padTo(std::string &str, const size_t num){
     if(num > str.size())
     	str.insert(0, num - str.size(), paddingChar);
 }
+
+void MovementDraw::drawButton(int num){
+	DrawingContext dc(Display::instance());
+	if(num == 1){
+		dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(RED));
+		dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
+	}else if(num == 2){
+		dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLUE));
+		dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
+	}
+}

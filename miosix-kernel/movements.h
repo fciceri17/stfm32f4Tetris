@@ -42,6 +42,7 @@ class MovementDraw
 	void drawInit();
 	void buttonPress(int ID);
 	void updateScore(int score);
+	void drawButton(int num);
 	
 };
 

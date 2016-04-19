@@ -10,7 +10,7 @@ Game::Game(){
 
 void Game::startGame(){
 	md.drawInit();
-	//in.startListening();
+	in.startListening();
 	while(true){
 		md.updateScore(score);
 		grid.addBlock();
