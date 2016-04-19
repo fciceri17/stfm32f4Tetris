@@ -18,9 +18,9 @@ class Grid{
 	private:
 		vector <Block> blocks;
 		bool collision(Block newBlock);
-		void deleteRow();
 	public: 
 		Grid();
+		void deleteRow();
 		void rotate();
 		void translate(int direction);
 		bool addBlock();
