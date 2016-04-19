@@ -68,7 +68,7 @@ void InputManager::run(){
 					md.drawGrid(*grid);
 					
 				}
-				else if (within e.getPoint(), Point(0,TOPH), Point(DISPW,DISPH-BUTTONH))){
+				else if (within (e.getPoint(), Point(0,TOPH), Point(DISPW,DISPH-BUTTONH))){
 					grid->rotate();
 				}
 				break;

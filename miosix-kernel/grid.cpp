@@ -77,14 +77,14 @@
 			y = blocks.at(i).getY();
 			for(int j=0; j<4; j++)
 				for(int z=0; z<4; z++)
-					g[y+j]+= *(tmp+4*j);
+					g[y+j]+= *(tmp+j*4+z);
 			
 		}
 		for(int i=0; i<blocks.size(); i++){
 			tmp = blocks.at(i).getStructure();
 			y = blocks.at(i).getY();
 			for(int z=0; z<4; z++){
-				if(g[y+z]==GRIDX){
+				if(g[y+z]>=12){
 					for(int j=0; j<4; j++){
 						if(z>0)
 							*(tmp+z*4+j) = *(tmp+(z-1)*4+j);
