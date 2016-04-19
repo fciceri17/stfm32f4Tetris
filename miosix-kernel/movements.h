@@ -25,6 +25,7 @@
 
 #include "mxgui/entry.h"
 #include "mxgui/display.h"
+#include "miosix/arch/common/drivers/stm32_hardware_rng.h"
 #include "grid.h"
 
 using namespace mxgui;
