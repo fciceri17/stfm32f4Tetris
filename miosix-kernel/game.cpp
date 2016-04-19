@@ -18,6 +18,7 @@ void Game::startGame(){
 			md.drawGrid(grid);
 			sleep(1);
 		}
+		grid.deleteRow();
 			//da sostituire con movimento verso il basso
 		score += MULTIPLIER;
 	}

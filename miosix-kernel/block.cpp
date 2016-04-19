@@ -14,7 +14,7 @@ int structure[4][4] = {
 				0, 0, 0, 0
 			};
 			copyArr(structure, structBlock);	
-		}
+		
 	x=xC;
 	y=yC;
 
