@@ -66,32 +66,55 @@
 	}
 	
 	void Grid::deleteRow(){ // TO CHECK
-		int g[GRIDY];
-		int* tmp;
-		int y=0;
+		int g[GRIDY],z;
+		
 		for(int y=0; y<GRIDY; y++){
 			g[y]=0;
 		}
-		for(int i=0; i<blocks.size(); i++){
+		/*for(int i=0; i<blocks.size(); i++){
 			tmp = blocks.at(i).getStructure();
 			y = blocks.at(i).getY();
-			for(int j=0; j<4; j++)
-				for(int z=0; z<4; z++)
-					g[y+j]+= *(tmp+j*4+z);
+			for(int z=0; z<4; z++)
+				for(int j=0; j<4; j++)
+					g[y+z]+= *(tmp+z*4+j);
 			
+		}*/
+		for(int y=0; y<GRIDY; y++){
+			for(int x=0; x<GRIDX; x++){
+				if(collision(/*blocco[y][x]*/))
+					g[y]++;
+			}
 		}
-		for(int i=0; i<blocks.size(); i++){
+		/*for(int i=0; i<blocks.size(); i++){
 			tmp = blocks.at(i).getStructure();
 			y = blocks.at(i).getY();
 			for(int z=0; z<4; z++){
 				if(g[y+z]>=12){
-					for(int j=0; j<4; j++){
 						if(z>0)
-							*(tmp+z*4+j) = *(tmp+(z-1)*4+j);
+							for(int j=0; j<4; j++)
+								*(tmp+z*4+j) = *(tmp+(z-1)*4+j);
 						else
-							*(tmp+z*4+j) = 0;
+							for(int j=0; j<4; j++)
+								*(tmp+z*4+j) = 0;
 					}
 				}
+			}
+		}*/
+		for(int j=11; j>=0; j--{
+			if(g[j]>=12){
+				for(int i=0; i<blocks.size(); i++){
+					z = blocks.at(i).getY();
+					for(int y=4; y>=0; y--){
+						if(z+y==j)
+							for(int x=0; x<4; x++)
+								*(tmp+y*4+x) = *(tmp+(y-1)*4+x);
+						if(z+y<j)
+							for(int x=0; x<4; x++)
+								*(tmp+(y-1)*4+x) = *(tmp+y*4+x);
+							
+					}
+				}
+				
 			}
 		}
 	}
