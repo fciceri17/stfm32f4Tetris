@@ -17,13 +17,13 @@ void MovementDraw::drawGrid(Grid gr){
 	for(Block curr : blockSet){
 		for(int i=0;i<MATX;i++){
 			for(int z=0; z<MATY; z++){
-				if(curr.getStructure()[z][i]==1){
+				int *memloc = (curr.getStructure()+4*z+i);
+				if(*memloc){
 					int x1,x2,y1,y2;
-					x1 = i*OFFSET+20*curr.getX();
-					x2 = i*OFFSET+OFFSET+20*curr.getX()-1;
-					y1 = z*OFFSET+20*curr.getY();
-					y2 = z*OFFSET+OFFSET-1+20*curr.getY();
-					dc.clear(Point(x1,y1), Point(x2,y2), WHITE);
+					x1 = i*OFFSET+20*curr.getX()+1;
+					x2 = i*OFFSET+OFFSET+20*curr.getX()+1;
+					y1 = (z-1)*OFFSET+20*curr.getY()+TOPH;
+					y2 = (z-1)*OFFSET+OFFSET-1+20*curr.getY()+TOPH+1;
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
 				}
 			}
@@ -42,16 +42,16 @@ void MovementDraw::drawInit(){
 	dc.drawRectangle(Point(0,0), Point(DISPW,TOPH), Color(BLACK));
 	
 	//draw bottom left button
-	dc.clear(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(CYAN));
-	dc.drawRectangle(Point(0,DISPH-BUTTONH), Point(DISPW/2-1,DISPH), Color(BLACK));
+	dc.clear(Point(0,DISPH-BUTTONH+1), Point(DISPW/2-1,DISPH), Color(CYAN));
+	dc.drawRectangle(Point(0,DISPH-BUTTONH+1), Point(DISPW/2-1,DISPH), Color(BLACK));
 	
 	//draw left button arrow
 	dc.clear(Point(DISPW/2*3/8,DISPH-BUTTONH/2-1), Point(DISPW/2*5/8,DISPH-BUTTONH/2+1), Color(BLACK));
 	dc.drawRectangle(Point(DISPW/2*3/8,DISPH-BUTTONH/2-1), Point(DISPW/2*5/8,DISPH-BUTTONH/2+1), Color(BLACK));
 	
 	//draw bottom right button
-	dc.clear(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(CYAN));
-	dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH), Color(BLACK));
+	dc.clear(Point(DISPW/2+1,DISPH-BUTTONH+1), Point(DISPW,DISPH), Color(CYAN));
+	dc.drawRectangle(Point(DISPW/2+1,DISPH-BUTTONH+1), Point(DISPW,DISPH), Color(BLACK));
 
 }
 
@@ -59,7 +59,7 @@ void MovementDraw::drawInit(){
 void MovementDraw::clearArea(){
 
 	DrawingContext dc(Display::instance());
-	dc.clear(Point(0,TOPH),Point(DISPW,DISPH-BUTTONH),WHITE);
+	dc.clear(Point(1,TOPH+1),Point(DISPW-1,DISPH-BUTTONH),WHITE);
 
 }
 

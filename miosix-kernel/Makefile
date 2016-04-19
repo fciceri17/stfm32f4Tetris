@@ -22,7 +22,7 @@ main.cpp movements.cpp game.cpp grid.cpp block.cpp input_manager.cpp
 ##
 ## List here additional static libraries with relative path
 ##
-LIBS := -L./mxgui -lmxgui
+LIBS := -L./mxgui -lmxgui -L./miosix -lmiosix
 
 ##
 ## List here additional include directories (in the form -Iinclude_dir)

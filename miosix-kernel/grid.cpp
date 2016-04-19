@@ -1,12 +1,13 @@
 #include "grid.h"
-#include <ctime>
+
 
 	Grid::Grid(){}
 	
 	bool Grid::addBlock(){
 		bool ret = true;
-		Block b(rand()%5);
-		if(collision(b))
+		HardwareRng& random=HardwareRng::instance();
+		Block b(random.get()%5);
+		if(true || !collision(b))
 			blocks.push_back(b);
 		else
 			ret = false;
@@ -20,14 +21,21 @@
 	bool Grid::canAddBlock(){
 
 		bool ret=false;
-		Block last = blocks.back();
-		Block tmp = last;
-		blocks.pop_back();
-		tmp.translate(2);
-		if(collision(tmp)){
+		if(!blocks.empty()){
+			Block last = blocks.back();
+			Block tmp = last;
+			blocks.pop_back();
+			tmp.translate(2);
+			if(collision(tmp)){
+				ret = true;
+				blocks.push_back(last);
+			}else{
+				blocks.push_back(tmp);
+			}
+		}
+		else{
 			ret = true;
 		}
-		blocks.push_back(last);
 		return ret;
 	}
 	
@@ -66,10 +74,10 @@
 				checker[i][j] = 0;
 			}
 		}
-		int** temp = newBlock.getStructure();
+		int* temp = newBlock.getStructure();
 		for(int i=0;i<4;i++){
 			for(int j=0;j<4;j++){
-				checker[newBlock.getX()+i][newBlock.getY()+j] += temp[i][j]; //add new block to test grid
+				checker[newBlock.getX()+i][newBlock.getY()+j] += *(temp+4*j+i); //add new block to test grid
 			}
 		}
 		
@@ -77,7 +85,7 @@
 			temp = curr.getStructure();
 			for(int i=0;i<4;i++){
 				for(int j=0;j<4;j++){
-					checker[curr.getX()+i][curr.getY()+j] += temp[i][j]; //add currently iterating block
+					checker[curr.getX()+i][curr.getY()+j] += *(temp+4*j+i); //add currently iterating block
 				}
 			}
 		}
@@ -87,5 +95,9 @@
 				if(checker[i][j] > 1){ return true;}
 			}
 		}
-		return false;
+		if(newBlock.getBottom()+newBlock.getY()<=GRIDY){
+			return false;
+		}else{
+			return true;
+		}
 	}

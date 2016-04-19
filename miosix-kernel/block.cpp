@@ -14,6 +14,7 @@ Block::Block(int blockID){
 				1, 0, 0, 0,
 				1, 0, 0, 0
 			};
+			bottom = 3;
 			copyArr(structure, structBlock);	
 		}
 			break;
@@ -25,6 +26,7 @@ Block::Block(int blockID){
 				1, 1, 0, 0,
 				0, 0, 0, 0
 			};
+			bottom = 2;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -36,6 +38,7 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -47,6 +50,7 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -58,13 +62,14 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			bottom = 1;
 			copyArr(structure, structBlock);
 		}
 			break;
 		default:			// blockID not matching, no block can be created
 			break;
 	}
-	x = 0;
+	x = 5;
 	y = 0;
 }
 
@@ -76,11 +81,15 @@ int Block::getY(){
 	return y;
 }
 
-int** Block::getStructure(){
-	int *retST[4] = { structBlock[0], structBlock[1], structBlock[2], structBlock[3] }; //TODO FIX
-	std::memcpy(*retV, *retST, 4*sizeof(int));
-	return retV;
+
+int Block::getBottom(){
+	return bottom;
 }
+
+int* Block::getStructure(){
+	return &structBlock[0][0];
+		
+	}
 
 
 /*
@@ -119,7 +128,9 @@ void Block::translate(int d){
 			x--;	
 		}
 		else{
-			
+			if(d == TRANSLATEY){
+			y++;	
+		}
 		}
 	}
 }
