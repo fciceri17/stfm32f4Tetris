@@ -59,7 +59,7 @@ void MovementDraw::drawInit(){
 void MovementDraw::clearArea(){
 
 	DrawingContext dc(Display::instance());
-	dc.clear(WHITE); //TODO AREA
+	dc.clear(Point(0,TOPH),Point(DISPW,DISPH-BUTTONH),WHITE);
 
 }
 
