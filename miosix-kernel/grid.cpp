@@ -65,6 +65,38 @@
 		}		
 	}
 	
+	void Grid::deleteRow(){ // TO CHECK
+		int g[GRIDY];
+		int* tmp;
+		int y=0;
+		for(int y=0; y<GRIDY; y++){
+			g[y]=0;
+		}
+		for(int i=0; i<blocks.size(); i++){
+			tmp = blocks.at(i).getStructure();
+			y = blocks.at(i).getY();
+			for(int j=0; j<4; j++)
+				for(int z=0; z<4; z++)
+					g[y+j]+= *(tmp+4*j);
+			
+		}
+		for(int i=0; i<blocks.size(); i++){
+			tmp = blocks.at(i).getStructure();
+			y = blocks.at(i).getY();
+			for(int z=0; z<4; z++){
+				if(g[y+z]==GRIDX){
+					for(int j=0; j<4; j++){
+						if(z>0)
+							*(tmp+z*4+j) = *(tmp+(z-1)*4+j);
+						else
+							*(tmp+z*4+j) = 0;
+					}
+				}
+			}
+		}
+	}
+	
+	
 	bool Grid::collision(Block newBlock){
 		vector<Block> myBlocks = getBlocks();
 		
