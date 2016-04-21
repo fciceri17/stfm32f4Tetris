@@ -51,24 +51,24 @@ void InputManager::run(){
 			case EventType::TouchMove:
 				break;
 			case EventType::TouchDown:
-				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){ //im in the left button
+				if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){ //im in the left button
 					md.drawButton(1);
-				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){ //im in the right button
+				}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){ //im in the right button
 					md.drawButton(2);
 				}
 				
 				//TODO MOVE AND TRIGGER
 				break;
 			case EventType::TouchUp:
-				if(within(e.getPoint(), Point(0, DISPH-BUTTONH), Point(DISPW/2-1,DISPH))){
+				if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){
 					grid->translate(TRANSLATESX);
 					md.drawGrid(*grid);
-				}else if (within(e.getPoint(), Point(DISPW/2+1,DISPH-BUTTONH), Point(DISPW,DISPH))){
+				}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){
 					grid->translate(TRANSLATEDX);
 					md.drawGrid(*grid);
 					
 				}
-				else if (within (e.getPoint(), Point(0,TOPH), Point(DISPW,DISPH-BUTTONH))){
+				else if (within (e.getPoint(), Point(0,md.getTopbarHeight()), Point(md.getDispWidth(),md.getDispHeight()-md.getButtonHeight()))){
 					grid->rotate();
 					md.drawGrid(*grid);
 				}

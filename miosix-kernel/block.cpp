@@ -31,6 +31,7 @@ Block::Block(int blockID){
 				1, 0, 0, 0,
 				1, 0, 0, 0
 			};
+			colour = CYAN;
 			copyArr(structure, structBlock);	
 		}
 			break;
@@ -42,6 +43,7 @@ Block::Block(int blockID){
 				1, 1, 0, 0,
 				0, 0, 0, 0
 			};
+			colour = ORANGE;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -53,6 +55,7 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			colour = MAGENTA;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -64,6 +67,7 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			colour = RED;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -75,6 +79,31 @@ Block::Block(int blockID){
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
+			colour = YELLOW;
+			copyArr(structure, structBlock);
+		}
+			break;
+		case 5:				// L reverse block
+		{
+			int structure[4][4] = {
+				1, 1, 0, 0,
+				1, 0, 0, 0,
+				1, 0, 0, 0,
+				0, 0, 0, 0
+			};
+			colour = BLUE;
+			copyArr(structure, structBlock);
+		}
+			break;
+		case 6:				// O bock
+		{
+			int structure[4][4] = {
+				0, 1, 1, 0,
+				1, 1, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0
+			};
+			colour = GREEN;
 			copyArr(structure, structBlock);
 		}
 			break;
@@ -116,7 +145,11 @@ int* Block::getStructure(){
 		
 	}
 
-
+int Block::getColour(){
+	return colour;
+}
+	
+	
 /*
 * This method rotates the block by 90.
 */

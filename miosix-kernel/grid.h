@@ -2,14 +2,10 @@
 #define GRID
 
 #include <vector>
-#include "block.h"
 #include <stdlib.h>
-#include <time.h>
+#include "block.h"
 #include "miosix/arch/common/drivers/stm32_hardware_rng.h"
-
-
-#define GRIDX 12
-#define GRIDY 13
+#include "utility.h"
 
 using namespace std;
 using namespace miosix;

@@ -5,10 +5,7 @@
 #include "grid.h"
 #include "pthread.h"
 #include "movements.h"
-
-#define TRANSLATEDX 0
-#define TRANSLATESX 1
-
+#include "utility.h"
 
 class InputManager{
 	private:

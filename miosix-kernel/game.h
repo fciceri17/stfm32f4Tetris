@@ -1,9 +1,10 @@
 #ifndef GAME
 #define	GAME
-#define MULTIPLIER 5
+
 #include "movements.h"
 #include "grid.h"
 #include "input_manager.h"
+#include "utility.h"
 
 using namespace std;
 
