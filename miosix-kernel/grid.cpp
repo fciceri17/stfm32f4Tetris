@@ -1,4 +1,5 @@
 #include "grid.h"
+#include <stdio.h>
 
 
 	Grid::Grid(){}
@@ -7,7 +8,7 @@
 		bool ret = true;
 		HardwareRng& random=HardwareRng::instance();
 		Block b(random.get()%7);
-		if(true || !collision(b))
+		if(!collision(b))
 			blocks.push_back(b);
 		else
 			ret = false;
@@ -101,25 +102,34 @@
 
 	bool Grid::collision(Block newBlock){
 		vector<Block> myBlocks = getBlocks();
-		if(newBlock.getBottom()+newBlock.getY()<=GRIDY && newBlock.getSide()+newBlock.getX()<GRIDX && newBlock.getX()>=0){
-			int checker[GRIDX][GRIDY]; //initialize test grid
-			for(int i=0;i<GRIDX;i++){
-				for(int j=0;j<GRIDY;j++){
+		if(newBlock.getBottom()+newBlock.getY()<GRIDY && newBlock.getSide()+newBlock.getX()<GRIDX && newBlock.getX()>=0){
+			int checker[GRIDY][GRIDX]; //initialize test grid
+			for(int i=0;i<GRIDY;i++){
+				for(int j=0;j<GRIDX;j++){
 					checker[i][j] = 0;
 				}
 			}
 			int* temp = newBlock.getStructure();
 			for(int i=0;i<4;i++){
 				for(int j=0;j<4;j++){
-					checker[newBlock.getX()+i][newBlock.getY()+j] += *(temp+4*j+i); //add new block to test grid
+					checker[newBlock.getY()+i][newBlock.getX()+j] += *(temp+4*i+j); //add new block to test grid
 				}
 			}
+			
+			for(int i=0;i<GRIDY;i++){
+				for(int j=0;j<GRIDX;j++){
+						printf("%d",checker[i][j]);
+				}
+				printf("\n");
+			}
+			
+			
 			
 			for(Block curr : myBlocks){
 				temp = curr.getStructure();
 				for(int i=0;i<4;i++){
 					for(int j=0;j<4;j++){
-						checker[curr.getX()+i][curr.getY()+j] += *(temp+4*j+i); //add currently iterating block
+						checker[curr.getY()+i][curr.getX()+j] += *(temp+4*i+j); //add currently iterating block
 					}
 				}
 			}

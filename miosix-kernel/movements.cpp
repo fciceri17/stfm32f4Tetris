@@ -31,8 +31,8 @@ void MovementDraw::drawGrid(Grid gr){
 					x2 = i*offset+offset+20*curr.getX()+1;
 					if(x2>239)
 						x2=239;
-					y1 = (z-1)*offset+20*curr.getY()+topBar;
-					y2 = (z-1)*offset+offset-1+20*curr.getY()+topBar+1;
+					y1 = (z)*offset+20*curr.getY()+topBar;
+					y2 = (z)*offset+offset-1+20*curr.getY()+topBar+1;
 					dc.clear(Point(x1,y1), Point(x2,y2), curr.getColour());
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
 				}

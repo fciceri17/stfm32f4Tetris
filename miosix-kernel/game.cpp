@@ -11,16 +11,14 @@ Game::Game(){
 void Game::startGame(){
 	md.drawInit();
 	in.startListening();
-	while(true){
-		md.updateScore(score);
-		grid.addBlock();
-		while(!grid.canAddBlock()){
+	while(grid.addBlock()){
+		do{
 			md.drawGrid(grid);
-			sleep(1);
-		}
-		grid.deleteRow();
+			usleep(300000);
+		}while(!grid.canAddBlock());
+		//grid.deleteRow();
 			//da sostituire con movimento verso il basso
 		score += MULTIPLIER;
 	}
-	//in.gameOver();
+	in.gameOver();
 }

@@ -8,8 +8,8 @@
 Block::Block(int xC, int yC){
 
 int structure[4][4] = {
-				1, 0, 0, 0,
 				0, 0, 0, 0,
+				1, 0, 0, 0,
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
@@ -110,7 +110,7 @@ Block::Block(int blockID){
 		default:			// blockID not matching, no block can be created
 			break;
 	}
-	x = 5;
+	x = GRIDX/2-1;
 	y = 0;
 }
 
