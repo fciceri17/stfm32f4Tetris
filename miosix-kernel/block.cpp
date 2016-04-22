@@ -8,8 +8,8 @@
 Block::Block(int xC, int yC){
 
 int structure[4][4] = {
-				0, 0, 0, 0,
 				1, 0, 0, 0,
+				0, 0, 0, 0,
 				0, 0, 0, 0,
 				0, 0, 0, 0
 			};
@@ -17,6 +17,7 @@ int structure[4][4] = {
 		
 	x=xC;
 	y=yC;
+	colour = RED;
 
 }
 
@@ -184,6 +185,19 @@ void Block::copyArr(int src[][4], int dest[][4]){
 			dest[i][j] = src[i][j];
 		}
 	}
+
+}
+
+
+void Block::deleteRow(int row){
+	for(int i=row;i<4;i++)
+		for(int j=0;j<4;j++){
+			structBlock[i][j]=structBlock[i+1][j];
+		}
+	for(int j=0;j<4;j++){
+		structBlock[3][j]=0;
+	}
+	y++;
 
 }
 

@@ -1,4 +1,5 @@
 #include "grid.h"
+#include "movements.h"
 #include <stdio.h>
 
 
@@ -66,9 +67,8 @@
 		}		
 	}
 	
-	void Grid::deleteRow(){ // TO CHECK
-		int g[GRIDY],z;
-		int * tmp;
+	bool Grid::deleteRow(){ // TO CHECK
+		int g[GRIDY];
 		Block b(0,0);
 		for(int y=0; y<GRIDY; y++){
 			g[y]=0;
@@ -76,27 +76,36 @@
 		for(int y=0; y<GRIDY; y++){
 			for(int x=0; x<GRIDX; x++){
 				b=Block(x,y);
-				if(collision(b))
+				if(collision(b)){
 					g[y]++;
+				}
 			}
 		}
 		
 		for(int j=12; j>=0; j--){
-			if(g[j]>=12){
-				for(int i=0; i<blocks.size(); i++){
-					tmp = blocks.at(i).getStructure();
-					z = blocks.at(i).getY();
-					for(int y=4; y>=0; y--){
-						if(z+y<j){
-							for(int x=1; x<4; x++)
-								*(tmp+(y-1)*4+x) = *(tmp+y*4+x);
-							blocks.at(i).translate(TRANSLATEY);
-						}	
+			if(g[j]==GRIDX){
+				vector <Block> tempBlocks;
+				for(Block curr : blocks){
+					if(curr.getY()+curr.getBottom()>=j && curr.getY()<=j){
+						curr.deleteRow(j-curr.getY());
+					}else{
+						if(curr.getY()+curr.getBottom()<GRIDY-1){
+							curr.translate(TRANSLATEY);
+						}
 					}
+					tempBlocks.push_back(curr);
 				}
+				blocks.clear();
+				for(Block curr : tempBlocks){
+					blocks.push_back(curr);
+				}
+				return true;
 				
 			}
 		}
+		return false;
+		
+		
 	}
 	
 
@@ -116,12 +125,14 @@
 				}
 			}
 			
+			/*
 			for(int i=0;i<GRIDY;i++){
 				for(int j=0;j<GRIDX;j++){
 						printf("%d",checker[i][j]);
 				}
 				printf("\n");
 			}
+			*/
 			
 			
 			
@@ -134,8 +145,8 @@
 				}
 			}
 			
-			for(int i=0;i<GRIDX;i++){
-				for(int j=0;j<GRIDY;j++){
+			for(int i=0;i<GRIDY;i++){
+				for(int j=0;j<GRIDX;j++){
 					if(checker[i][j] > 1){ return true;}
 				}
 			}

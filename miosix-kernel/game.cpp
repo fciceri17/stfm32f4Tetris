@@ -10,15 +10,20 @@ Game::Game(){
 
 void Game::startGame(){
 	md.drawInit();
+	md.updateScore(score);
 	in.startListening();
 	while(grid.addBlock()){
 		do{
 			md.drawGrid(grid);
 			usleep(300000);
 		}while(!grid.canAddBlock());
-		//grid.deleteRow();
-			//da sostituire con movimento verso il basso
-		score += MULTIPLIER;
+		while(grid.deleteRow()){
+			score += MULTIPLIER;
+			md.updateScore(score);
+			md.drawGrid(grid);
+			usleep(150000);
+		};
+		
 	}
 	in.gameOver();
 }

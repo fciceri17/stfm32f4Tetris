@@ -20,6 +20,7 @@ class Block{
 		int getX();
 		int getY();
 		int* getStructure();
+		void deleteRow(int row);
 		void rotate();
 		void translate(int d);	
 };
