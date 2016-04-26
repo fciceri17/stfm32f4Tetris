@@ -6,31 +6,34 @@ using namespace mxgui;
 using namespace miosix;
 using namespace std;
 
-MovementDraw::MovementDraw(){
+MovementDraw::MovementDraw(){}
+
+MovementDraw::MovementDraw(Grid* grid){
 	DrawingContext dc(Display::instance());
 	dispWidth = dc.getWidth()-1;
 	dispHeight = dc.getHeight()-1;
 	topBar = (dispHeight+1) / TOP_RATIO;
 	buttonHeight = (dispHeight+1) / BUTTON_RATIO;
 	offset = (dispHeight+1) /OFFSET_RATIO;
-	
+	gr = grid;
 }
 
 void MovementDraw::drawStartingScreen(){
 	DrawingContext dc(Display::instance());
 	dc.clear(Point(0,0), Point(dispWidth, dispHeight), BLACK);
 	dc.setTextColor	(LIGHT_GREY, BLACK);	 
-	dc.write(Point(dispWidth*3/8, dispHeight/2), "TAP ANYWHERE TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
+	dc.write(Point(dispWidth*3/8, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
 	
 }
+
 
 /*
 * This method colours the rectangle inside the screen and the blocks contained in the blockSet.
 */
-void MovementDraw::drawGrid(Grid gr){
+void MovementDraw::drawGrid(){
 	DrawingContext dc(Display::instance());
 	clearArea();
-	vector<Block> blockSet = gr.getBlocks();
+	vector<Block> blockSet = gr->getBlocks();
 	for(Block curr : blockSet){
 		for(int i=0;i<MATX;i++){
 			for(int z=0; z<MATY; z++){
@@ -61,7 +64,17 @@ void MovementDraw::drawInit(){
 	
 	dc.clear(Point(0,0), Point(dispWidth,topBar), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0,0), Point(dispWidth,topBar), Color(BLACK));
+/*	PROBLEM: to implement the controls of the boundaries with the lateral bars
+	// draw left vertical bar
+	dc.clear(Point(0, topBar), Point(offset, dispHeight-buttonHeight+1), Color(LIGHT_GREY));
+	dc.drawRectangle(Point(0, topBar), Point(offset, dispHeight-buttonHeight+1), Color(BLACK));
 	
+	// draw right vertical bar
+	dc.clear(Point(dispWidth-offset+2, topBar), Point(dispWidth, dispHeight-buttonHeight+1), Color(LIGHT_GREY));
+	dc.drawRectangle(Point(dispWidth-offset+2, topBar), Point(dispWidth, dispHeight-buttonHeight+1), Color(BLACK));
+*/
+
+
 	//draw bottom left button
 	dc.clear(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(BLACK));
@@ -109,10 +122,8 @@ void MovementDraw::drawInit(){
 * This method colours the rectangle inside the screen.
 */
 void MovementDraw::clearArea(){
-
 	DrawingContext dc(Display::instance());
-	dc.clear(Point(1,topBar+1),Point(dispWidth-1,dispHeight-buttonHeight),WHITE);
-
+	dc.clear(Point(offset+1,topBar+1),Point(dispWidth-offset+1,dispHeight-buttonHeight),WHITE);
 }
 
 
@@ -144,26 +155,41 @@ void MovementDraw::drawButton(int num, int colour){
 
 
 void MovementDraw::drawGameOver(){
+	int x1,x2,y1,y2,j=0;
+	int *memloc;
 	DrawingContext dc(Display::instance());
 	clearArea();
-	vector<Block> blockSet = Grid::getGameOverBlocks();
+	vector<Block> blockSet = gr->getGameOverBlocks();
+	
+	
+	
 	for(Block curr : blockSet){
-		for(int i=0;i<MATX;i++){
-			for(int z=0; z<MATY; z++){
-				int *memloc = (curr.getStructure()+4*z+i);
+		
+		for(int i=0;i<5;i++){
+			for(int z=0; z<4; z++){
+				memloc = (curr.getStructure2())+4*i+z;
+				
 				if(*memloc){
-					int x1,x2,y1,y2;
-					x1 = i*offset+20*curr.getX()+1;
-					x2 = i*offset+offset+20*curr.getX()+1;
-					if(x2>239)
-						x2=239;
-					y1 = (z)*offset+20*curr.getY()+topBar;
-					y2 = (z)*offset+offset-1+20*curr.getY()+topBar+1;
+					printf("1 ");
+					x1 = z*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
+					x2 = (z+1)*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
+					if(j<blockSet.size()/2){
+						y1 = dispHeight*2/6 +dispWidth/OFFSET_GO*i;
+					}else{
+						y1 = dispHeight*3/6 +dispWidth/OFFSET_GO*i;
+					}
+					
+					y2 = y1+dispWidth/OFFSET_GO;
 					dc.clear(Point(x1,y1), Point(x2,y2), curr.getColour());
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
-				}
+				}else
+					printf("0 ");
+				
 			}
+			printf("\n");
 		}
+		j++;
+		printf("------\n");
 	}
 }
 

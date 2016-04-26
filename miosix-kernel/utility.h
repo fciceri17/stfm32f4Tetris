@@ -4,6 +4,7 @@
 
 #include <string>
 #include <sstream>
+#include <mutex>
 #include "miosix/arch/common/drivers/stm32_hardware_rng.h"
 
 // translation indexes
@@ -60,7 +61,7 @@
 #define BUTTON_RATIO 8
 
 // game over offset ratio
-#define OFFSET_GO 32
+#define OFFSET_GO 40
 
 // offset ratio
 #define OFFSET_RATIO 16
@@ -72,6 +73,7 @@ using namespace std;
 
 class Utility{
 	public:
+		bool mtx;  
 
 		static string numberToString(int number){
 			 ostringstream s;
@@ -83,6 +85,14 @@ class Utility{
 			const char paddingChar = '0';
 			if(num > str.size())
 				str.insert(0, num - str.size(), paddingChar);
+		}
+		
+		bool getMtx(){
+			return mtx;
+		}
+		
+		void setMtx(bool b){
+			mtx=b;
 		}
 		
 };

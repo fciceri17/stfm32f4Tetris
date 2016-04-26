@@ -127,7 +127,7 @@ Block::Block(char c){
 				1, 1, 1, 1
 			};
 			colour = CYAN;
-			copyArr2(structure, structBlock);	
+			copyArr2(structure, structBlock2);	
 		}
 			break;
 		case 'A':				// A block
@@ -140,7 +140,7 @@ Block::Block(char c){
 				1, 0, 0, 1
 			};
 			colour = ORANGE;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		case 'M':				// M block
@@ -153,7 +153,7 @@ Block::Block(char c){
 				1, 0, 0, 1
 			};
 			colour = MAGENTA;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		case 'E':				// E block
@@ -166,7 +166,7 @@ Block::Block(char c){
 				1, 1, 1, 1
 			};
 			colour = RED;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		case 'O':				// O block
@@ -179,19 +179,20 @@ Block::Block(char c){
 				0, 1, 1, 0
 			};
 			colour = YELLOW;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		case 'V':				// V block
 		{
 			int structure[5][4] = {
-				1, 0, 1, 0,
-				1, 0, 1, 0,
+				1, 0, 0, 1,
+				1, 0, 0, 1,
+				1, 0, 0, 1,
 				1, 0, 1, 0,
 				0, 1, 0, 0
 			};
 			colour = BLUE;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		case 'R':				// R block
@@ -204,12 +205,14 @@ Block::Block(char c){
 				1, 0, 0, 1
 			};
 			colour = GREEN;
-			copyArr2(structure, structBlock);
+			copyArr2(structure, structBlock2);
 		}
 			break;
 		default:
 			break;
 	}
+	x=0;
+	y=0;
 }
 
 int Block::getX(){
@@ -240,8 +243,11 @@ int Block::getSide(){
 
 int* Block::getStructure(){
 	return &structBlock[0][0];
-		
-	}
+}
+
+int* Block::getStructure2(){
+	return &structBlock2[0][0];
+}
 
 int Block::getColour(){
 	return colour;
@@ -286,8 +292,8 @@ void Block::copyArr(int src[][4], int dest[][4]){
 }
 
 void Block::copyArr2(int src[][4], int dest[][4]){
-	for(int i=0;i<5;i++){
-		for(int j=0;j<4;j++){
+	for(int i=0;i<5;i++){	
+		for(int j=0;j<4;j++){	
 			dest[i][j] = src[i][j];
 		}
 	}

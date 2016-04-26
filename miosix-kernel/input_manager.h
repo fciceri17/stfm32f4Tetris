@@ -9,7 +9,7 @@
 
 class InputManager{
 	private:
-		pthread_t thread;
+		pthread_t thread, tmp;
 		Grid* grid;
 		bool exit;
 		void run();
@@ -19,6 +19,7 @@ class InputManager{
 	public:
 		InputManager();
 		InputManager(Grid* g,MovementDraw move);
+		void waitTouch();
 		void startListening();
 		void gameOver();
 };

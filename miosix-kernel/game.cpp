@@ -3,31 +3,32 @@
 		
 Game::Game(){
 	grid = Grid();
-	md = MovementDraw();
+	md = MovementDraw(&grid);
 	in = InputManager(&grid,md);
 	score = 0;
 }
 
 void Game::startGame(){
+	setMtx(true);
+	md.drawStartingScreen();
+	in.waitTouch();
+	while(getMtx());
 	md.drawInit();
 	md.updateScore(score);
 	in.startListening();
-	md.drawGameOver();
-	/*
 	while(grid.addBlock()){
 		do{
-			md.drawGrid(grid);
-			usleep(300000);
+			md.drawGrid();
+			usleep(500000);
 		}while(!grid.canAddBlock());
+		score ++;
+		md.updateScore(score);
 		while(grid.deleteRow()){
 			score += MULTIPLIER;
 			md.updateScore(score);
-			md.drawGrid(grid);
-			usleep(150000);
+			md.drawGrid();
+			usleep(500000);
 		};
-		
 	}
-	
 	in.gameOver();
-	*/
 }

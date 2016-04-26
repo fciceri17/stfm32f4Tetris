@@ -11,6 +11,7 @@ using namespace mxgui;
 class MovementDraw
 {
 	private:
+	Grid* gr;
 	int dispWidth;
 	int dispHeight;
 	int topBar;
@@ -21,8 +22,9 @@ class MovementDraw
 	void padTo(std::string &str, const size_t num);
 	
 	public:
-	MovementDraw();
-	void drawGrid(Grid gr);
+	MovementDraw();	
+	MovementDraw(Grid* gr);
+	void drawGrid();
 	void drawInit();
 	void buttonPress(int ID);
 	void updateScore(int score);

@@ -21,7 +21,32 @@ InputManager::InputManager(Grid * g, MovementDraw move){
 void InputManager::gameOver(){
 	exit = true;
 	pthread_join(thread, NULL);
-	//md.drawGameOver();
+	md.drawGameOver();
+}
+
+void InputManager::waitTouch(){
+	pthread_create(&tmp,NULL,InputManager::doRun2,this);
+}
+
+void *InputManager::doRun2(void *arg)
+{
+	reinterpret_cast<InputManager*>(arg)->run2();
+	return NULL;
+}
+
+void InputManager::run(){
+		Event e = InputHandler::instance().popEvent();
+		switch(e.getEvent()){
+			case EventType::Default:
+			case EventType::TouchMove:
+			case EventType::TouchUp:
+			case EventType::TouchDown:
+				setMtx(false);
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 /*
@@ -68,18 +93,18 @@ void InputManager::run(){
 					// in the left button
 					md.drawButton(BUTTON1, BLACK);
 					grid->translate(TRANSLATESX);
-					md.drawGrid(*grid);
+					md.drawGrid();
 				}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){
 					// in the right button
 					md.drawButton(BUTTON2, BLACK);
 					grid->translate(TRANSLATEDX);
-					md.drawGrid(*grid);
+					md.drawGrid();
 					
 				}
 				else if (within (e.getPoint(), Point(0,md.getTopbarHeight()), Point(md.getDispWidth(),md.getDispHeight()-md.getButtonHeight()))){
 					// in the rectangle
 					grid->rotate();
-					md.drawGrid(*grid);
+					md.drawGrid();
 				}
 				break;
 			default:

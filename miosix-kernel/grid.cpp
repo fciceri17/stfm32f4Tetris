@@ -20,6 +20,21 @@
 		return blocks;
 	}
 	
+	vector<Block> Grid::getGameOverBlocks(){
+			
+			Block g('G'), a('A'), m('M'), e('E'), o('O'), v('V'), r('R');
+			printf("%d",*(g.getStructure()));
+			blockss.push_back(g);
+			blockss.push_back(a);
+			blockss.push_back(m);
+			blockss.push_back(e);
+			blockss.push_back(o);
+			blockss.push_back(v);
+			blockss.push_back(e);
+			blockss.push_back(r);
+			return blockss;
+		}
+		
 	bool Grid::canAddBlock(){
 
 		bool ret=false;

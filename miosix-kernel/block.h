@@ -3,11 +3,13 @@
 
 #include "utility.h"
 #include <cstring>
+#include <stdio.h>
 
 class Block{
 	private:
 		int x, y;
 		int structBlock[4][4];
+		int structBlock2[5][4];
 		int colour;
 		void copyArr(int src[][4], int dest[][4]);
 		void copyArr2(int src[][4], int dest[][4]);
@@ -22,6 +24,7 @@ class Block{
 		int getX();
 		int getY();
 		int* getStructure();
+		int* getStructure2();
 		void deleteRow(int row);
 		void rotate();
 		void translate(int d);	
