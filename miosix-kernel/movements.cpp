@@ -1,7 +1,6 @@
 #include "movements.h"
 #include "mxgui/display.h"
 #include <string>
-#include <sstream>
 
 using namespace mxgui;
 using namespace miosix;
@@ -17,6 +16,17 @@ MovementDraw::MovementDraw(){
 	
 }
 
+void MovementDraw::drawStartingScreen(){
+	DrawingContext dc(Display::instance());
+	dc.clear(Point(0,0), Point(dispWidth, dispHeight), BLACK);
+	dc.setTextColor	(LIGHT_GREY, BLACK);	 
+	dc.write(Point(dispWidth*3/8, dispHeight/2), "TAP ANYWHERE TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
+	
+}
+
+/*
+* This method colours the rectangle inside the screen and the blocks contained in the blockSet.
+*/
 void MovementDraw::drawGrid(Grid gr){
 	DrawingContext dc(Display::instance());
 	clearArea();
@@ -49,11 +59,11 @@ void MovementDraw::drawInit(){
 	
 	//draw empty top bar in black
 	
-	dc.clear(Point(0,0), Point(dispWidth,topBar), Color(WHITE));
+	dc.clear(Point(0,0), Point(dispWidth,topBar), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0,0), Point(dispWidth,topBar), Color(BLACK));
 	
 	//draw bottom left button
-	dc.clear(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(WHITE));
+	dc.clear(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(BLACK));
 	
 	
@@ -63,17 +73,18 @@ void MovementDraw::drawInit(){
 	pDx = Point(dispWidth/2*5/8,dispHeight-buttonHeight/2+1);
 	dc.clear(pSx, pDx, Color(BLACK));
 	dc.drawRectangle(pSx, pDx, Color(BLACK));
-	//up right diagonal 
-	dc.line(Point(dispWidth/2*3/8,dispHeight-buttonHeight/2-1), Point(dispWidth/2*3/8+7,dispHeight-buttonHeight/2-7), Color(BLACK));
-	dc.line(Point(dispWidth/2*3/8+1,dispHeight-buttonHeight/2-1), Point(dispWidth/2*3/8+1+7,dispHeight-buttonHeight/2-7), Color(BLACK));
-	dc.line(Point(dispWidth/2*3/8+2,dispHeight-buttonHeight/2-1), Point(dispWidth/2*3/8+2+7,dispHeight-buttonHeight/2-7), Color(BLACK));
+	//up right diagonal
+	for(int i=0; i<3; i++)
+		dc.line(Point(dispWidth/2*3/8+i,dispHeight-buttonHeight/2-1),
+								Point(dispWidth/2*3/8+i+7,dispHeight-buttonHeight/2-7), Color(BLACK));
+	
 	//down right diagonal
-	dc.line(Point(dispWidth/2*3/8,dispHeight-buttonHeight/2+1), Point(dispWidth/2*3/8+7,dispHeight-buttonHeight/2+7), Color(BLACK));
-	dc.line(Point(dispWidth/2*3/8+1,dispHeight-buttonHeight/2+1), Point(dispWidth/2*3/8+1+7,dispHeight-buttonHeight/2+7), Color(BLACK));
-	dc.line(Point(dispWidth/2*3/8+2,dispHeight-buttonHeight/2+1), Point(dispWidth/2*3/8+2+7,dispHeight-buttonHeight/2+7), Color(BLACK));
+	for(int i=0; i<3; i++)
+		dc.line(Point(dispWidth/2*3/8+i,dispHeight-buttonHeight/2+1),
+								Point(dispWidth/2*3/8+7+i,dispHeight-buttonHeight/2+7), Color(BLACK));
 	
 	//draw bottom right button
-	dc.clear(Point(dispWidth/2+1,dispHeight-buttonHeight+1), Point(dispWidth,dispHeight), Color(WHITE));
+	dc.clear(Point(dispWidth/2+1,dispHeight-buttonHeight+1), Point(dispWidth,dispHeight), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(dispWidth/2+1,dispHeight-buttonHeight+1), Point(dispWidth,dispHeight), Color(BLACK));
 	
 	
@@ -83,18 +94,20 @@ void MovementDraw::drawInit(){
 	pDx = Point(dispWidth/2*5/8+dispWidth/2,dispHeight-buttonHeight/2+1);
 	dc.clear(pSx,pDx, Color(BLACK));
 	dc.drawRectangle(pSx, pDx, Color(BLACK));
-	//up left diagonal 
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2,dispHeight-buttonHeight/2-1), Point(dispWidth/2*5/8+dispWidth/2-7,dispHeight-buttonHeight/2-7), Color(BLACK));
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2-1,dispHeight-buttonHeight/2-1), Point(dispWidth/2*5/8+dispWidth/2-1-7,dispHeight-buttonHeight/2-7), Color(BLACK));
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2-2,dispHeight-buttonHeight/2-1), Point(dispWidth/2*5/8+dispWidth/2-2-7,dispHeight-buttonHeight/2-7), Color(BLACK));
+	//up left diagonal
+	for(int i=0; i<3; i++)
+		dc.line(Point(dispWidth/2*5/8-i+dispWidth/2,dispHeight-buttonHeight/2-1),
+								Point(dispWidth/2*5/8-i+dispWidth/2-7,dispHeight-buttonHeight/2-7), Color(BLACK));
+	
 	//down left diagonal
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2,dispHeight-buttonHeight/2+1), Point(dispWidth/2*5/8+dispWidth/2-7,dispHeight-buttonHeight/2+7), Color(BLACK));
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2-1,dispHeight-buttonHeight/2+1), Point(dispWidth/2*5/8+dispWidth/2-1-7,dispHeight-buttonHeight/2+7), Color(BLACK));
-	dc.line(Point(dispWidth/2*5/8+dispWidth/2-2,dispHeight-buttonHeight/2+1), Point(dispWidth/2*5/8+dispWidth/2-2-7,dispHeight-buttonHeight/2+7), Color(BLACK));
-
+	for(int i=0; i<3; i++)
+		dc.line(Point(dispWidth/2*5/8-i+dispWidth/2,dispHeight-buttonHeight/2+1),
+								Point(dispWidth/2*5/8-i+dispWidth/2-7,dispHeight-buttonHeight/2+7), Color(BLACK));
 }
 
-
+/*
+* This method colours the rectangle inside the screen.
+*/
 void MovementDraw::clearArea(){
 
 	DrawingContext dc(Display::instance());
@@ -103,28 +116,57 @@ void MovementDraw::clearArea(){
 }
 
 
+/*
+* This method updates the value of the score, showing it in the top bar.
+*/
 void MovementDraw::updateScore(int score){
 	DrawingContext dc(Display::instance());
 	string str = Utility::numberToString(score);
 	Utility::padTo(str, 8);
 	const char * c = str.c_str();
-	dc.setTextColor	(BLACK, WHITE);	 
+	dc.setTextColor	(BLACK, LIGHT_GREY);	 
 	dc.write(Point(dispWidth - dispWidth/4, 5), c);
 }
 
 
 
-
-void MovementDraw::drawButton(int num){
+/*
+* This method draws the shadow of the button when it is pressed.
+*/
+void MovementDraw::drawButton(int num, int colour){
 	DrawingContext dc(Display::instance());
-	if(num == 1){
-		//dc.clear(Point(0,dispHeight-buttonHeight), Point(dispWidth/2-1,dispHeight), Color(RED));
-		dc.drawRectangle(Point(0,dispHeight-buttonHeight), Point(dispWidth/2-1,dispHeight), Color(RED));
-	}else if(num == 2){
-		//dc.clear(Point(dispWidth/2+1,dispHeight-buttonHeight), Point(dispWidth,dispHeight), Color(BLUE));
-		dc.drawRectangle(Point(dispWidth/2+1,dispHeight-buttonHeight), Point(dispWidth,dispHeight), Color(BLUE));
+	if(num == BUTTON1){
+		dc.drawRectangle(Point(0,dispHeight-buttonHeight+1), Point(dispWidth/2-1,dispHeight), Color(colour));
+	}else if(num == BUTTON2){
+		dc.drawRectangle(Point(dispWidth/2+1,dispHeight-buttonHeight+1), Point(dispWidth,dispHeight), Color(colour));
 	}
 }
+
+
+void MovementDraw::drawGameOver(){
+	DrawingContext dc(Display::instance());
+	clearArea();
+	vector<Block> blockSet = Grid::getGameOverBlocks();
+	for(Block curr : blockSet){
+		for(int i=0;i<MATX;i++){
+			for(int z=0; z<MATY; z++){
+				int *memloc = (curr.getStructure()+4*z+i);
+				if(*memloc){
+					int x1,x2,y1,y2;
+					x1 = i*offset+20*curr.getX()+1;
+					x2 = i*offset+offset+20*curr.getX()+1;
+					if(x2>239)
+						x2=239;
+					y1 = (z)*offset+20*curr.getY()+topBar;
+					y2 = (z)*offset+offset-1+20*curr.getY()+topBar+1;
+					dc.clear(Point(x1,y1), Point(x2,y2), curr.getColour());
+					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
+				}
+			}
+		}
+	}
+}
+
 
 /* Getters */
 int MovementDraw::getDispWidth(){

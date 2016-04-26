@@ -12,6 +12,8 @@ void Game::startGame(){
 	md.drawInit();
 	md.updateScore(score);
 	in.startListening();
+	md.drawGameOver();
+	/*
 	while(grid.addBlock()){
 		do{
 			md.drawGrid(grid);
@@ -25,5 +27,7 @@ void Game::startGame(){
 		};
 		
 	}
+	
 	in.gameOver();
+	*/
 }

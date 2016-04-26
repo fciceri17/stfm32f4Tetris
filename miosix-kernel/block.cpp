@@ -7,7 +7,7 @@
 
 Block::Block(int xC, int yC){
 
-int structure[4][4] = {
+	int structure[4][4] = {
 				1, 0, 0, 0,
 				0, 0, 0, 0,
 				0, 0, 0, 0,
@@ -115,6 +115,103 @@ Block::Block(int blockID){
 	y = 0;
 }
 
+Block::Block(char c){
+	switch(c){
+		case 'G':				// G block
+		{
+			int structure[5][4] = {
+				1, 1, 1, 1,
+				1, 0, 0, 0,
+				1, 0, 1, 1,
+				1, 0, 0, 1,
+				1, 1, 1, 1
+			};
+			colour = CYAN;
+			copyArr2(structure, structBlock);	
+		}
+			break;
+		case 'A':				// A block
+		{
+			int structure[5][4] = {
+				0, 1, 1, 0,
+				1, 0, 0, 1,
+				1, 1, 1, 1,
+				1, 0, 0, 1,
+				1, 0, 0, 1
+			};
+			colour = ORANGE;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		case 'M':				// M block
+		{
+			int structure[5][4] = {
+				1, 0, 0, 1,
+				1, 1, 1, 1,
+				1, 0, 0, 1,
+				1, 0, 0, 1,
+				1, 0, 0, 1
+			};
+			colour = MAGENTA;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		case 'E':				// E block
+		{
+			int structure[5][4] = {
+				1, 1, 1, 1,
+				1, 0, 0, 0,
+				1, 1, 1, 0,
+				1, 0, 0, 0,
+				1, 1, 1, 1
+			};
+			colour = RED;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		case 'O':				// O block
+		{
+			int structure[5][4] = {
+				0, 1, 1, 0,
+				1, 0, 0, 1,
+				1, 0, 0, 1,
+				1, 0, 0, 1,
+				0, 1, 1, 0
+			};
+			colour = YELLOW;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		case 'V':				// V block
+		{
+			int structure[5][4] = {
+				1, 0, 1, 0,
+				1, 0, 1, 0,
+				1, 0, 1, 0,
+				0, 1, 0, 0
+			};
+			colour = BLUE;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		case 'R':				// R block
+			{
+			int structure[5][4] = {
+				1, 1, 1, 1,
+				1, 0, 0, 1,
+				1, 1, 1, 1,
+				1, 0, 1, 0,
+				1, 0, 0, 1
+			};
+			colour = GREEN;
+			copyArr2(structure, structBlock);
+		}
+			break;
+		default:
+			break;
+	}
+}
+
 int Block::getX(){
 	return x;
 }
@@ -188,6 +285,13 @@ void Block::copyArr(int src[][4], int dest[][4]){
 
 }
 
+void Block::copyArr2(int src[][4], int dest[][4]){
+	for(int i=0;i<5;i++){
+		for(int j=0;j<4;j++){
+			dest[i][j] = src[i][j];
+		}
+	}
+}
 
 void Block::deleteRow(int row){
 	for(int i=row;i<4;i++)

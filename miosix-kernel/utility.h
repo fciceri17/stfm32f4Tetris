@@ -59,6 +59,9 @@
 // button ratio
 #define BUTTON_RATIO 8
 
+// game over offset ratio
+#define OFFSET_GO 32
+
 // offset ratio
 #define OFFSET_RATIO 16
 

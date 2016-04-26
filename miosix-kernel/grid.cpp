@@ -8,7 +8,7 @@
 	bool Grid::addBlock(){
 		bool ret = true;
 		HardwareRng& random=HardwareRng::instance();
-		Block b(random.get()%7);
+		Block b((int)(random.get()%7));
 		if(!collision(b))
 			blocks.push_back(b);
 		else

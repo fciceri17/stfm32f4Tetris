@@ -26,11 +26,13 @@ class MovementDraw
 	void drawInit();
 	void buttonPress(int ID);
 	void updateScore(int score);
-	void drawButton(int num);
+	void drawButton(int num, int colour);
+	void drawStartingScreen();
 	int getDispWidth();
 	int getDispHeight();
 	int getButtonHeight();
 	int getTopbarHeight();
+	void drawGameOver();
 	
 };
 

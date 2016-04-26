@@ -10,12 +10,14 @@ class Block{
 		int structBlock[4][4];
 		int colour;
 		void copyArr(int src[][4], int dest[][4]);
+		void copyArr2(int src[][4], int dest[][4]);
 
 	public:
 		int getBottom();
 		int getSide();
 		int getColour();
 		Block(int blockID);
+		Block(char c);
 		Block(int xC, int yC);
 		int getX();
 		int getY();
