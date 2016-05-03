@@ -86,6 +86,7 @@ bool onEnd;
 	}
 	
 	bool Grid::deleteRow(){ // TO CHECK
+		onEnd = true;
 		int g[GRIDY];
 		Block b(0,0);
 		for(int y=0; y<GRIDY; y++){
