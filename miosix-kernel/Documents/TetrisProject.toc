@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Tetris game}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Gameplay}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}The game on the board}{3}{subsection.2.2}
+\contentsline {section}{\numberline {3}Structure of the program}{4}{section.3}
+\contentsline {section}{\numberline {4}Software and tool used}{5}{section.4}
