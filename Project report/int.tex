@@ -1,0 +1,36 @@
+
+\section{Key Parts of the Program and their Interaction}
+	This section briefly describes the major implementations made in order to best model the game.
+	\subsection{Dynamic Grid Computation}
+		Due to choices made with the formation of the grid, we didn't have an array to represent our grid to continuously update. This wasn't much of an issues, since due to the 
+		structure of our grid we could compute every time we would need it in the program. With the way we designed it all, the only time we would need for the grid to be dynamically 
+		computed was when we were looking for collisions.
+	\subsection{Collision detection}
+		This is probably the most important backed function made. It is called every time a piece has to move, be it simple downward advancement, lateral movements or rotation. Fundamentally,
+		this method checks if the block in its new position will collide with any blocks in the already existing grid. Note that every time this method is called, it is preceded by the creation of a new 
+		block, and usually even by the removal of a block from the grid if it is being tested. \\
+		The way the method works is by first computing the "static" grid, matching it to an array of 1's and 0's. Consequently, it adds the "new" block to the grid, by summing it on top of the
+		computed grid. As a result, any overlaps between the already placed pieces and the new one will result in a 2 on the grid. The method checks for any 2's in the grid, and returns a collision
+		if a 2 is found, false otherwise. This can be exploited for pretty much any check the game has to make, from simple rotations and movements, as well as the removal of complete rows.
+	\subsection{Row Deletion and Points}
+		While the checks for rotation or movement are simple, row deletion was a little more challenging. In order to detect a collision, we had to check a whole line in one iteration. In order to do this,
+		we create an array of 13 lines, one for each line of the grid. Then, for every line, we iterate on each column. On each iteration, we create a small 1x1 block, in the current line and column, and
+		check whether this creates a collision. If there is a collision, we increase the counter for the line. By checking every column of a line once, if there is a collision in each column, we will see
+		that the entry representing the line in the temporary array will be equal to the Grid's number of columns, defined as GRIDX in our code. \\
+		Once each line has been tested, we check the array that condenses every line into a value. Upon the first occurrence of the maximum value of GRIDX, the row deletion algorithm deletes the first row
+		it finds from every block that contains it, and moves all blocks above the current row down by 1. Afterwards, it terminates and returns true. This is used both as a visual aid, so that each row can
+		be seen deleted one-by-one, as well as simplifying the deletion of rows, by doing one at a time instead of deleting multiple rows in bulk. Every time the row deletion algorithm returns true, it is called
+		again and it once again check all rows using the procedure previously described, and it continues getting called until no new rows can be deleted. At that point, it will return false, and a new block 
+		will be added to the game.
+	\subsection{Vector Cleanup}
+		Another problem that arises with the way our grid is structured is that the blocks vector may contain numerous empty blocks. In order to prevent this, every time a row is deleted,
+		all blocks are checked for emptiness. If one block is empty, it is removed from the vector by using the Vector.erase() method. Once a block is deleted, the method is called again, much like
+		in the case of row deletion, since sequential deletion is simpler than bulk deletion.
+	\subsection{Synchronization of Input and Movement}
+		Since the game is composed fundamentally by two threads, one handling inputs and the other handling everything else, synchronizing the two was an issue. For example, sometime the game would start
+		before the input manager was up and running, and the first two movements would fire before the inputs were read. In order to avoid this, we used the mutex structure with condition variables, and made
+		the game start only after an input is read. \\
+		The other major issue was movements happening during row deletion or right inbetween the addition of a new block to the game. To avoid this, we added a new global boolean variable onEnd, which tells us
+		whether or not the last block has yet reached its bottom-most position, and can therefore no longer move. The variable is set to true every time a new block is added, meaning that the block can be freely
+		moved by user inputs, while it is set to false the moment the row deletion checks begin. This makes it so that the blocks don't get moved or rotated into funky positions after they are placed into their 
+		final position.
