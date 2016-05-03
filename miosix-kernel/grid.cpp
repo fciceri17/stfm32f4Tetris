@@ -118,6 +118,7 @@ bool onEnd;
 				for(Block curr : tempBlocks){
 					blocks.push_back(curr);
 				}
+				while(deleteBlock());
 				return true;
 				
 			}
@@ -127,6 +128,18 @@ bool onEnd;
 		
 	}
 	
+	bool Grid::deleteBlock(){
+		int z,i;
+		for(int x=0; x<blocks.size(); x++){
+			for(z=0, i=0; i<16 && z==0; i++)
+				z = *(blocks.at(x).getStructure()+i);
+			if(z==0){
+				blocks.erase(blocks.begin()+x);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	bool Grid::collision(Block newBlock){
 		vector<Block> myBlocks = getBlocks();

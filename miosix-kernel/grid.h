@@ -17,6 +17,7 @@ class Grid{
 		bool collision(Block newBlock);
 	public: 
 		Grid();
+		bool deleteBlock();
 		bool deleteRow();
 		void rotate();
 		void translate(int direction);
