@@ -14,3 +14,10 @@
 /miosix-kernel/mxgui/level2
 /miosix-kernel/mxgui/_doc
 /miosix-kernel/mxgui/_examples
+/Project report/*.bbl
+/Project report/*.blg
+/Project report/*.log
+/Project report/*.pdf
+/Project report/*.toc
+/Project report/*.aux
+/Project report/*.gz
