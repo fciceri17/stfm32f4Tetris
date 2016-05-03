@@ -22,7 +22,7 @@ void MovementDraw::drawStartingScreen(){
 	DrawingContext dc(Display::instance());
 	dc.clear(Point(0,0), Point(dispWidth, dispHeight), BLACK);
 	dc.setTextColor	(LIGHT_GREY, BLACK);	 
-	dc.write(Point(dispWidth*3/8, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
+	dc.write(Point(dispWidth*1/8, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
 	
 }
 
@@ -40,8 +40,8 @@ void MovementDraw::drawGrid(){
 				int *memloc = (curr.getStructure()+4*z+i);
 				if(*memloc){
 					int x1,x2,y1,y2;
-					x1 = i*offset+20*curr.getX()+1;
-					x2 = i*offset+offset+20*curr.getX()+1;
+					x1 = (i+1)*offset+20*curr.getX()+1;
+					x2 = (i+1)*offset+offset+20*curr.getX()+1;
 					if(x2>239)
 						x2=239;
 					y1 = (z)*offset+20*curr.getY()+topBar;
@@ -64,7 +64,7 @@ void MovementDraw::drawInit(){
 	
 	dc.clear(Point(0,0), Point(dispWidth,topBar), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0,0), Point(dispWidth,topBar), Color(BLACK));
-/*	PROBLEM: to implement the controls of the boundaries with the lateral bars
+
 	// draw left vertical bar
 	dc.clear(Point(0, topBar), Point(offset, dispHeight-buttonHeight+1), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(0, topBar), Point(offset, dispHeight-buttonHeight+1), Color(BLACK));
@@ -72,7 +72,7 @@ void MovementDraw::drawInit(){
 	// draw right vertical bar
 	dc.clear(Point(dispWidth-offset+2, topBar), Point(dispWidth, dispHeight-buttonHeight+1), Color(LIGHT_GREY));
 	dc.drawRectangle(Point(dispWidth-offset+2, topBar), Point(dispWidth, dispHeight-buttonHeight+1), Color(BLACK));
-*/
+
 
 
 	//draw bottom left button
@@ -170,7 +170,6 @@ void MovementDraw::drawGameOver(){
 				memloc = (curr.getStructure2())+4*i+z;
 				
 				if(*memloc){
-					printf("1 ");
 					x1 = z*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
 					x2 = (z+1)*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
 					if(j<blockSet.size()/2){
@@ -182,14 +181,10 @@ void MovementDraw::drawGameOver(){
 					y2 = y1+dispWidth/OFFSET_GO;
 					dc.clear(Point(x1,y1), Point(x2,y2), curr.getColour());
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
-				}else
-					printf("0 ");
-				
+				}
 			}
-			printf("\n");
 		}
 		j++;
-		printf("------\n");
 	}
 }
 

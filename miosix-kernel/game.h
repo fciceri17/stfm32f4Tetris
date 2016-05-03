@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 class Game{
 	private:
 		InputManager in;

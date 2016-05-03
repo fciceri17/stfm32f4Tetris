@@ -1,6 +1,10 @@
 #include "game.h"
 #include <stdlib.h>
-		
+#include <iostream>
+
+Mutex mtx, inputMtx;
+ConditionVariable cv;
+
 Game::Game(){
 	grid = Grid();
 	md = MovementDraw(&grid);
@@ -9,10 +13,10 @@ Game::Game(){
 }
 
 void Game::startGame(){
-	setMtx(true);
 	md.drawStartingScreen();
 	in.waitTouch();
-	while(getMtx());
+	Lock<Mutex> lck(inputMtx);
+	cv.wait(lck);
 	md.drawInit();
 	md.updateScore(score);
 	in.startListening();
@@ -22,6 +26,8 @@ void Game::startGame(){
 			usleep(500000);
 		}while(!grid.canAddBlock());
 		score ++;
+		if(onEnd)
+			printf("true");
 		md.updateScore(score);
 		while(grid.deleteRow()){
 			score += MULTIPLIER;

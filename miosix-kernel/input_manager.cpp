@@ -3,6 +3,7 @@
 using namespace std;
 using namespace mxgui;
 
+
 InputManager::InputManager(){
 	grid = NULL;
 	exit = false;
@@ -34,14 +35,24 @@ void *InputManager::doRun2(void *arg)
 	return NULL;
 }
 
-void InputManager::run(){
+void InputManager::run2(){
+	
+	bool cc=false;
+	while(!cc){
 		Event e = InputHandler::instance().popEvent();
 		switch(e.getEvent()){
 			case EventType::Default:
 			case EventType::TouchMove:
-			case EventType::TouchUp:
+				break;
 			case EventType::TouchDown:
-				setMtx(false);
+			case EventType::TouchUp:
+				if(within(e.getPoint(), Point(0,0), Point(md.getDispWidth(),md.getDispHeight()))){
+					{
+						Lock<Mutex> lck(inputMtx);
+						cv.signal();
+					}
+					cc=true;
+				}
 				break;
 			default:
 				break;
@@ -75,40 +86,42 @@ void *InputManager::doRun(void *arg)
 void InputManager::run(){
 	while(!exit){
 		Event e = InputHandler::instance().popEvent();
-		switch(e.getEvent()){
-			case EventType::Default:
-			case EventType::TouchMove:
-				break;
-			case EventType::TouchDown:
-				if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){ 
-					// in the left button
-					md.drawButton(BUTTON1, BLUE);
-				}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){ 
-					// in the right button
-					md.drawButton(BUTTON2, RED);
-				}
-				break;
-			case EventType::TouchUp:
-				if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){
-					// in the left button
-					md.drawButton(BUTTON1, BLACK);
-					grid->translate(TRANSLATESX);
-					md.drawGrid();
-				}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){
-					// in the right button
-					md.drawButton(BUTTON2, BLACK);
-					grid->translate(TRANSLATEDX);
-					md.drawGrid();
-					
-				}
-				else if (within (e.getPoint(), Point(0,md.getTopbarHeight()), Point(md.getDispWidth(),md.getDispHeight()-md.getButtonHeight()))){
-					// in the rectangle
-					grid->rotate();
-					md.drawGrid();
-				}
-				break;
-			default:
-				break;
+		if(!onEnd){
+			switch(e.getEvent()){
+				case EventType::Default:
+				case EventType::TouchMove:
+					break;
+				case EventType::TouchDown:
+					if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){ 
+						// in the left button
+						md.drawButton(BUTTON1, BLUE);
+					}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){ 
+						// in the right button
+						md.drawButton(BUTTON2, RED);
+					}
+					break;
+				case EventType::TouchUp:
+					if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){
+						// in the left button
+						md.drawButton(BUTTON1, BLACK);
+						grid->translate(TRANSLATESX);
+						md.drawGrid();
+					}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){
+						// in the right button
+						md.drawButton(BUTTON2, BLACK);
+						grid->translate(TRANSLATEDX);
+						md.drawGrid();
+						
+					}
+					else if (within (e.getPoint(), Point(0,md.getTopbarHeight()), Point(md.getDispWidth(),md.getDispHeight()-md.getButtonHeight()))){
+						// in the rectangle
+						grid->rotate();
+						md.drawGrid();
+					}
+					break;
+				default:
+					break;
+			}
 		}
 		
 	}

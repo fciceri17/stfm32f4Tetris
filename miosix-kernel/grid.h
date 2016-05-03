@@ -23,7 +23,6 @@ class Grid{
 		bool addBlock();
 		bool canAddBlock();
 		vector<Block> getBlocks();
-		
 		vector<Block> getGameOverBlocks();
 		
 };

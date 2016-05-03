@@ -6,15 +6,18 @@
 #include "pthread.h"
 #include "movements.h"
 #include "utility.h"
+#include <iostream>
 
 class InputManager{
 	private:
 		pthread_t thread, tmp;
 		Grid* grid;
+		MovementDraw md;
 		bool exit;
 		void run();
-		MovementDraw md;
+		void run2();
 		static void* doRun(void *arg);
+		static void* doRun2(void *arg);
 		
 	public:
 		InputManager();

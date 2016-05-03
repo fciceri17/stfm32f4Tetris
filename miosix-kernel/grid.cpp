@@ -3,9 +3,12 @@
 #include <stdio.h>
 
 
+bool onEnd;
+
 	Grid::Grid(){}
 	
 	bool Grid::addBlock(){
+		onEnd = false;
 		bool ret = true;
 		HardwareRng& random=HardwareRng::instance();
 		Block b((int)(random.get()%7));
@@ -23,7 +26,6 @@
 	vector<Block> Grid::getGameOverBlocks(){
 			
 			Block g('G'), a('A'), m('M'), e('E'), o('O'), v('V'), r('R');
-			printf("%d",*(g.getStructure()));
 			blockss.push_back(g);
 			blockss.push_back(a);
 			blockss.push_back(m);
@@ -52,6 +54,7 @@
 		}
 		else{
 			ret = true;
+			onEnd=true;
 		}
 		return ret;
 	}
@@ -104,7 +107,7 @@
 					if(curr.getY()+curr.getBottom()>=j && curr.getY()<=j){
 						curr.deleteRow(j-curr.getY());
 					}else{
-						if(curr.getY()+curr.getBottom()<GRIDY-1){
+						if(curr.getY()+curr.getBottom()<j){
 							curr.translate(TRANSLATEY);
 						}
 					}
@@ -138,18 +141,7 @@
 				for(int j=0;j<4;j++){
 					checker[newBlock.getY()+i][newBlock.getX()+j] += *(temp+4*i+j); //add new block to test grid
 				}
-			}
-			
-			/*
-			for(int i=0;i<GRIDY;i++){
-				for(int j=0;j<GRIDX;j++){
-						printf("%d",checker[i][j]);
-				}
-				printf("\n");
-			}
-			*/
-			
-			
+			}			
 			
 			for(Block curr : myBlocks){
 				temp = curr.getStructure();

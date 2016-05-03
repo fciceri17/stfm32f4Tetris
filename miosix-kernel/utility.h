@@ -4,7 +4,7 @@
 
 #include <string>
 #include <sstream>
-#include <mutex>
+#include "miosix/kernel/sync.h"
 #include "miosix/arch/common/drivers/stm32_hardware_rng.h"
 
 // translation indexes
@@ -17,7 +17,7 @@
 #define MATY 4
 
 // grid dimensions
-#define GRIDX 12
+#define GRIDX 10
 #define GRIDY 13
 
 #define BUTTON1 1
@@ -70,11 +70,15 @@
 #define MULTIPLIER 5
 
 using namespace std;
+using namespace miosix;
+
+extern Mutex mtx, inputMtx;  
+extern ConditionVariable cv;
+extern bool onEnd;
 
 class Utility{
 	public:
-		bool mtx;  
-
+		
 		static string numberToString(int number){
 			 ostringstream s;
 			 s << number;
@@ -87,13 +91,15 @@ class Utility{
 				str.insert(0, num - str.size(), paddingChar);
 		}
 		
-		bool getMtx(){
+		/*
+		static bool getMtx(){
 			return mtx;
 		}
 		
-		void setMtx(bool b){
-			mtx=b;
+		static void setMtx(bool b){
+			mtx = b;
 		}
+		*/
 		
 };
 #endif //UTILITY_H
