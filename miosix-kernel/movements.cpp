@@ -22,7 +22,7 @@ void MovementDraw::drawStartingScreen(){
 	DrawingContext dc(Display::instance());
 	dc.clear(Point(0,0), Point(dispWidth, dispHeight), BLACK);
 	dc.setTextColor	(LIGHT_GREY, BLACK);	 
-	dc.write(Point(dispWidth*1/8, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
+	dc.write(Point(dispWidth/14, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); //A MUTEX IS LOCKED UNTIL THE GAME IS STARTED
 	
 }
 
@@ -170,8 +170,8 @@ void MovementDraw::drawGameOver(){
 				memloc = (curr.getStructure2())+4*i+z;
 				
 				if(*memloc){
-					x1 = z*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
-					x2 = (z+1)*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6;
+					x1 = z*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6+dispWidth/OFFSET_GO;
+					x2 = (z+1)*dispWidth/OFFSET_GO+((j%4)+1)*dispWidth/6+dispWidth/OFFSET_GO;
 					if(j<blockSet.size()/2){
 						y1 = dispHeight*2/6 +dispWidth/OFFSET_GO*i;
 					}else{

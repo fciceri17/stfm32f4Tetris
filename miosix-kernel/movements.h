@@ -18,8 +18,6 @@ class MovementDraw
 	int buttonHeight;
 	int offset;
 	void clearArea();
-	string NumberToString(int number);
-	void padTo(std::string &str, const size_t num);
 	
 	public:
 	MovementDraw();	
