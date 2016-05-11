@@ -1,5 +1,5 @@
-#ifndef GRID
-#define GRID
+#ifndef GRID_H
+#define GRID_H
 
 #include <vector>
 #include <stdlib.h>
@@ -10,7 +10,8 @@
 using namespace std;
 using namespace miosix;
 
-class Grid{
+class Grid
+{
 	private:
 		vector <Block> blocks;
 		vector<Block> blockss;
@@ -25,7 +26,6 @@ class Grid{
 		bool canAddBlock();
 		vector<Block> getBlocks();
 		vector<Block> getGameOverBlocks();
-		
 };
 
-#endif //GRID
+#endif //GRID_H

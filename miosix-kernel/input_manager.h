@@ -8,7 +8,8 @@
 #include "utility.h"
 #include <iostream>
 
-class InputManager{
+class InputManager
+{
 	private:
 		pthread_t thread, tmp;
 		Grid* grid;

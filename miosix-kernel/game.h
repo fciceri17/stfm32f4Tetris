@@ -8,8 +8,8 @@
 
 using namespace std;
 
-
-class Game{
+class Game
+{
 	private:
 		InputManager in;
 		MovementDraw md;

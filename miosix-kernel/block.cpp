@@ -1,27 +1,22 @@
 #include "block.h"
 
-
-
 /*
 * The constructor creates the structure of the block based on the blockID.
 */
-
 Block::Block(int xC, int yC){
 
 	int structure[4][4] = {
-				1, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0
-			};
-			copyArr(structure, structBlock);	
-		
+		1, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0
+	};
+	copyArr(structure, structBlock);	
 	x=xC;
 	y=yC;
 	colour = RED;
 
 }
-
 
 Block::Block(int blockID){
 	switch(blockID){
@@ -254,7 +249,6 @@ int Block::getColour(){
 	return colour;
 }
 	
-	
 /*
 * This method rotates the block by 90.
 */
@@ -280,7 +274,6 @@ void Block::rotate(){
 		for(int j=0; j < MATY-x; j++){
 			structBlock[i][j]=tmp[i+y][j+x];
 		}
-		
 }
 
 void Block::copyArr(int src[][4], int dest[][4]){
@@ -289,7 +282,6 @@ void Block::copyArr(int src[][4], int dest[][4]){
 			dest[i][j] = src[i][j];
 		}
 	}
-
 }
 
 void Block::copyArr2(int src[][4], int dest[][4]){
@@ -309,7 +301,6 @@ void Block::deleteRow(int row){
 		structBlock[3][j]=0;
 	}
 	y++;
-
 }
 
 /*
@@ -325,8 +316,8 @@ void Block::translate(int d){
 		}
 		else{
 			if(d == TRANSLATEY){
-			y++;	
-		}
+				y++;	
+			}
 		}
 	}
 }

@@ -3,9 +3,9 @@
 
 #include "utility.h"
 #include <cstring>
-#include <stdio.h>
 
-class Block{
+class Block
+{
 	private:
 		int x, y;
 		int structBlock[4][4];

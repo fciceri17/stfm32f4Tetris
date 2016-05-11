@@ -1,6 +1,5 @@
 #include "game.h"
 #include <stdlib.h>
-#include <iostream>
 
 Mutex mtx, inputMtx;
 ConditionVariable cv;
@@ -26,8 +25,6 @@ void Game::startGame(){
 			usleep(500000);
 		}while(!grid.canAddBlock());
 		score ++;
-		if(onEnd)
-			printf("true");
 		md.updateScore(score);
 		while(grid.deleteRow()){
 			score += MULTIPLIER;

@@ -10,7 +10,7 @@
 \end{figure}
 \title{\textbf{TETRIS on STM32F4-Discovery}\\Advanced Operating Systems Project Report\\ A.Y. 2015/2016\\
 	Politecnico di Milano}	
-\author{Antenucci Sebastiano, matr. 790021\\Cattaneo Michela Gaia, matr. 863116\\Filippo Ciceri, matr. 855162 }
+\author{Antenucci Sebastiano, matr. 790021\\Cattaneo Michela Gaia, matr. 863116\\Ciceri Filippo, matr. 855162 }
 \date{May, 2016}
 \maketitle
 
@@ -60,9 +60,41 @@
 	\end{figure}
 	\vspace{0.5cm}
 	\\
-	The Block class stores the coordinates of the block, its color and its structure. The classic blocks are created by passing the blockID, a number from 0 to 6, which corresponds to a specific block.\\
-	The rotate and translate methods
-	
+	\begin{itemize}
+		\item[-] The \textbf{Block class} stores the coordinates of the block, its color and its structure.\\
+		Block has three different constructors. The classic blocks are created by passing the blockID, a number from 0 to 6, which corresponds to a specific block.\\
+		The blocks used for the game over screen are created by passing a character and a dummy piece, composed of one block, used for the check of the collisions is created by passing the coordinates to the constructor.\\
+		The translate function change the coordinates of the block, moving it right, left or down, while the rotate method changes its structure, rotating the matrix by 90 degrees.\\
+		The deleteRow method is called when it is necessary to delete a row from the structure of the block.\\
+		\item[-] The \textbf{Grid class} contains the vector of the blocks that are present in the grid at every iteration and the block composing the game over word.\\
+		The functions rotate, translate and deleteRow only check if the operation is possible, that is if it does not create a collision, and then call the homonym function in Block.\\
+		The addBlock function is the one that creates the blocks and add them to the grid, it returns true if adding the block does not create a collision, false otherwise. The block is created by passing a random number to the constructor, using the HardwareRng class.\\
+		The canAddBlock function make the current piece fall down, by checking if the translation of one unit down is possible first, then performing it. The result of this check is the return value of the function.\\
+		\item[-] The \textbf{Movement Draw class} is the class that manages the graphic interface, storing the dimensions of the board and of the components, such as buttons and bars.\\
+		The drawStartingScreen draws a black screen with the text "TAP ON THE SCREEN TO START THE GAME!", while drawGameOver draws the ending screen with the "GAME OVER" words written with blocks.\\
+		The drawInit delineates the color and the position of the display components: the top bar, the buttons, the arrows in the buttons, the lateral bars and the rectangle of the playing field.\\
+		The drawGrid function ask the grid for the blocks and draws them one by one, according to their actual position in the field.\\
+		
+		
+		\item[-] The \textbf{Input Manager class} uses threads in order to concurrently listen to touchscreen events.\\
+		The waitTouch method creates a thread that waits for a touch on the screen in order to start the game.\\
+		Another thread is created when the game starts, in the startListening function, and it is joined in the gameOver function.\\
+		It also has a reference to the grid, in order to apply rotations and translations according to the input it has received. If the touch cursor is located in the left or right button coordinates, a translation is performed, while if it is located in the rectangular area of the playing field, a rotation is performed.\\
+		The instance of movement draw is necessary to get the correct coordinates of the components and to refresh the screen when an action on the grid is performed.\\
+		
+		\item[-] The \textbf{Game class} creates the instances of Input Manager, Movement Draw and Grid. It stores the score and updates it at every iteration.\\
+		The startGame function manages a single game. It calls the Movement Draw methods to display the starting screen, the components and the grid when necessary. It also handles the inputs, with the support of mutexes, and the grid updates and checks.
+	\end{itemize}
+
+\newpage
+\input{int.tex}
+
+\newpage
+\section{Issues and future possible implementation}
+% problems/possible future impl:
+%	- the levels and the growing speed of the fall
+%	- the probability of the blocks
+%	- the more performant draw of the screen
 	
 \newpage
 \section{Software and tool used}

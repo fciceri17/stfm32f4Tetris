@@ -3,7 +3,6 @@
 using namespace std;
 using namespace mxgui;
 
-
 InputManager::InputManager(){
 	grid = NULL;
 	exit = false;
@@ -29,14 +28,12 @@ void InputManager::waitTouch(){
 	pthread_create(&tmp,NULL,InputManager::doRun2,this);
 }
 
-void *InputManager::doRun2(void *arg)
-{
+void *InputManager::doRun2(void *arg){
 	reinterpret_cast<InputManager*>(arg)->run2();
 	return NULL;
 }
 
 void InputManager::run2(){
-	
 	bool cc=false;
 	while(!cc){
 		Event e = InputHandler::instance().popEvent();
@@ -61,9 +58,10 @@ void InputManager::run2(){
 }
 
 /*
-* This method starts the thread execution.
+* This method starts the thread execution and joins the tmp thread, not needed anymore.
 */
 void InputManager::startListening(){
+	pthread_join(tmp, NULL);
 	pthread_create(&thread,NULL,InputManager::doRun,this);
 }
 
@@ -94,21 +92,21 @@ void InputManager::run(){
 				case EventType::TouchDown:
 					if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){ 
 						// in the left button
-						md.drawButton(BUTTON1, BLUE);
+						md.drawButton(BUTTON1, LIGHT_GREY);
 					}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){ 
 						// in the right button
-						md.drawButton(BUTTON2, RED);
+						md.drawButton(BUTTON2, LIGHT_GREY);
 					}
 					break;
 				case EventType::TouchUp:
 					if(within(e.getPoint(), Point(0, md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth()/2-1,md.getDispHeight()))){
 						// in the left button
-						md.drawButton(BUTTON1, BLACK);
+						md.drawButton(BUTTON1, DARK_GREY);
 						grid->translate(TRANSLATESX);
 						md.drawGrid();
 					}else if (within(e.getPoint(), Point(md.getDispWidth()/2+1,md.getDispHeight()-md.getButtonHeight()), Point(md.getDispWidth(),md.getDispHeight()))){
 						// in the right button
-						md.drawButton(BUTTON2, BLACK);
+						md.drawButton(BUTTON2, DARK_GREY);
 						grid->translate(TRANSLATEDX);
 						md.drawGrid();
 						
@@ -123,6 +121,5 @@ void InputManager::run(){
 					break;
 			}
 		}
-		
 	}
 }

@@ -1,7 +1,6 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-
 #include <string>
 #include <sstream>
 #include "miosix/kernel/sync.h"
@@ -37,23 +36,6 @@
 #define YELLOW 65504
 #define WHITE 65535
 
-/* ABSOLUTE display dimensions
-
-#define DISPH 319
-#define DISPW 239
-
-// scorebar dimension
-#define TOPH 20
-
-// button dimension
-#define BUTTONH 40
-
-// offset
-#define OFFSET 20
-
-*/
-
-
 // scorebar ratio
 #define TOP_RATIO 16
 
@@ -76,7 +58,8 @@ extern Mutex mtx, inputMtx;
 extern ConditionVariable cv;
 extern bool onEnd;
 
-class Utility{
+class Utility
+{
 	public:
 		
 		static string numberToString(int number){
@@ -89,17 +72,6 @@ class Utility{
 			const char paddingChar = '0';
 			if(num > str.size())
 				str.insert(0, num - str.size(), paddingChar);
-		}
-		
-		/*
-		static bool getMtx(){
-			return mtx;
-		}
-		
-		static void setMtx(bool b){
-			mtx = b;
-		}
-		*/
-		
+		}	
 };
 #endif //UTILITY_H
