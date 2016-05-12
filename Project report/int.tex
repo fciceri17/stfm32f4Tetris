@@ -34,14 +34,14 @@
 		whether or not the last block has yet reached its bottom-most position, and can therefore no longer move. The variable is set to true every time a new block is added, meaning that the block can be freely
 		moved by user inputs, while it is set to false the moment the row deletion checks begin. This makes it so that the blocks don't get moved or rotated into funky positions after they are placed into their 
 		final position.
-	\subsection{Graphics}
+	\subsection{The Screen}
 		We decided to divide the screen into three main parts:
 		\begin{itemize}
-			\item the top section which contains the score of the user
-			\item the middle section which displays the game and works as rotation button
-			\item the bottom section which contains two bottons used to translate the blocks
+			\item the top section, which contains the score of the user
+			\item the middle section, which displays the game progress and is used as rotation button
+			\item the bottom section, which contains two buttons used for translating the blocks.
 		\end{itemize} 
-		In order to represent the different blocks we decided to draw them dinamically: we represent each block in a 4x4 integer (1, 0) matrix, so we can 
+		In order to represent the different blocks we decided to draw them dynamically: we represent each block in a 4x4 integer (1, 0) matrix, so we can 
 		display them simply drawing every elementary part of the block (a small square).
 		In this way we are able to display all the blocks with only one function and also to draw text like the "Game Over" screen simply adding new type of blocks.
 		For displaying the left right arrow button we manually drew the arrow with the line function of MxGui then we surrounded them with a square to represent the border of the button.

@@ -11,14 +11,14 @@
 class InputManager
 {
 	private:
-		pthread_t thread, tmp;
+		pthread_t thread, startThread;
 		Grid* grid;
 		MovementDraw md;
 		bool exit;
 		void run();
-		void run2();
+		void runStartThread();
 		static void* doRun(void *arg);
-		static void* doRun2(void *arg);
+		static void* doRunStartThread(void *arg);
 		
 	public:
 		InputManager();

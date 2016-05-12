@@ -1,10 +1,10 @@
-
 #include "game.h"
 
 using namespace mxgui;
 using namespace miosix;
 
-ENTRY(){
+ENTRY()
+{
 	Game g = Game();
 	g.startGame();
 }

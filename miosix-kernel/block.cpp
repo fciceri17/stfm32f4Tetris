@@ -1,7 +1,7 @@
 #include "block.h"
 
-/*
-* The constructor creates the structure of the block based on the blockID.
+/**
+*	Constructor that creates the structure of the 1x1 block and sets its position.
 */
 Block::Block(int xC, int yC){
 
@@ -18,6 +18,9 @@ Block::Block(int xC, int yC){
 
 }
 
+/**
+*	Constructor that creates the structure of the block and set the colour based on the blockID.
+*/
 Block::Block(int blockID){
 	switch(blockID){
 		case 0:				// I block
@@ -111,6 +114,9 @@ Block::Block(int blockID){
 	y = 0;
 }
 
+/**
+*	Constructor that creates the structure of the block based on the char passed, for the game over blocks.
+*/
 Block::Block(char c){
 	switch(c){
 		case 'G':				// G block
@@ -211,6 +217,9 @@ Block::Block(char c){
 	y=0;
 }
 
+/**
+*	Getters.
+*/
 int Block::getX(){
 	return x;
 }
@@ -249,8 +258,8 @@ int Block::getColour(){
 	return colour;
 }
 	
-/*
-* This method rotates the block by 90.
+/**
+*	This method rotates the block by 90 degrees.
 */
 void Block::rotate(){
 	int tmp[MATX][MATY];
@@ -276,6 +285,9 @@ void Block::rotate(){
 		}
 }
 
+/**
+*	This method creates a copy of a 4x4 matrix.
+*/
 void Block::copyArr(int src[][4], int dest[][4]){
 	for(int i=0;i<4;i++){
 		for(int j=0;j<4;j++){
@@ -284,6 +296,9 @@ void Block::copyArr(int src[][4], int dest[][4]){
 	}
 }
 
+/**
+*	This method creates a copy of a 5x4 matrix.
+*/
 void Block::copyArr2(int src[][4], int dest[][4]){
 	for(int i=0;i<5;i++){	
 		for(int j=0;j<4;j++){	
@@ -292,6 +307,9 @@ void Block::copyArr2(int src[][4], int dest[][4]){
 	}
 }
 
+/**
+*	This method receives a row and deletes that row from the block structure.
+*/
 void Block::deleteRow(int row){
 	for(int i=row;i<4;i++)
 		for(int j=0;j<4;j++){
@@ -303,8 +321,8 @@ void Block::deleteRow(int row){
 	y++;
 }
 
-/*
-* This method changes the x coordinate of the block, according to the direction passed.
+/**
+*	This method increments by one the x or y coordinate of the block, according to the direction passed (right, left or down).
 */
 void Block::translate(int d){
 	if(d == TRANSLATEDX){

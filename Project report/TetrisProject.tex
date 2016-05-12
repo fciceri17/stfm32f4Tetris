@@ -36,7 +36,7 @@
 \section{Tetris game}
 	Tetris is a tile-matching puzzle video game.
 	\subsection{Gameplay}
-		There are seven different pieces of different colors, composed of four square blocks each.\\
+		There are seven different pieces of various colors, composed of four square blocks each.\\
 		\begin{figure}[h]
 			\centering
 			\includegraphics[scale=0.7]{blocks.jpg}
@@ -62,24 +62,24 @@
 	\\
 	\begin{itemize}
 		\item[-] The \textbf{Block class} stores the coordinates of the block, its color and its structure.\\
-		Block has three different constructors. The classic blocks are created by passing the blockID, a number from 0 to 6, which corresponds to a specific block.\\
-		The blocks used for the game over screen are created by passing a character and a dummy piece, composed of one block, used for the check of the collisions is created by passing the coordinates to the constructor.\\
-		The translate function change the coordinates of the block, moving it right, left or down, while the rotate method changes its structure, rotating the matrix by 90 degrees.\\
+		Block has three different constructors. The classic blocks are created by passing the blockID, a number from 0 to 6, which corresponds to a specific block.
+		The blocks used for the "game over" screen are created by passing a character and in order to create a 1x1 piece, useful for the checking functions, it is necessary pass the coordinates to the constructor.\\
+		The translate function changes the coordinates of the block, moving it right, left or down, while the rotate method changes its structure, rotating the matrix by 90 degrees.\\
 		The deleteRow method is called when it is necessary to delete a row from the structure of the block.\\
-		\item[-] The \textbf{Grid class} contains the vector of the blocks that are present in the grid at every iteration and the block composing the game over word.\\
-		The functions rotate, translate and deleteRow only check if the operation is possible, that is if it does not create a collision, and then call the homonym function in Block.\\
-		The addBlock function is the one that creates the blocks and add them to the grid, it returns true if adding the block does not create a collision, false otherwise. The block is created by passing a random number to the constructor, using the HardwareRng class.\\
+		\item[-] The \textbf{Grid class} contains the vector of the blocks that are present in the grid at every iteration and the block composing the "game over" word.\\
+		The functions rotate, translate and deleteRow only check if the operation is possible, that is if it does not create a collision, and then call the homonym function of Block.\\
+		The addBlock function is the one that creates the blocks and adds them to the grid, it returns true if adding the block does not create a collision, false otherwise. The block is created by passing a random number to the constructor, using the HardwareRng class.\\
 		The canAddBlock function make the current piece fall down, by checking if the translation of one unit down is possible first, then performing it. The result of this check is the return value of the function.\\
 		\item[-] The \textbf{Movement Draw class} is the class that manages the graphic interface, storing the dimensions of the board and of the components, such as buttons and bars.\\
 		The drawStartingScreen draws a black screen with the text "TAP ON THE SCREEN TO START THE GAME!", while drawGameOver draws the ending screen with the "GAME OVER" words written with blocks.\\
 		The drawInit delineates the color and the position of the display components: the top bar, the buttons, the arrows in the buttons, the lateral bars and the rectangle of the playing field.\\
-		The drawGrid function ask the grid for the blocks and draws them one by one, according to their actual position in the field.\\
+		The drawGrid function asks for the blocks present in the grid and draws them one by one, according to their actual position on the field.\\
 		
 		
 		\item[-] The \textbf{Input Manager class} uses threads in order to concurrently listen to touchscreen events.\\
-		The waitTouch method creates a thread that waits for a touch on the screen in order to start the game.\\
+		The waitTouch method creates a thread that waits for a touch on the screen to start the game.\\
 		Another thread is created when the game starts, in the startListening function, and it is joined in the gameOver function.\\
-		It also has a reference to the grid, in order to apply rotations and translations according to the input it has received. If the touch cursor is located in the left or right button coordinates, a translation is performed, while if it is located in the rectangular area of the playing field, a rotation is performed.\\
+		It also has a reference of the grid, in order to apply rotations and translations, according to the input it has received. If the touch cursor is located in the left or right button coordinates, a translation is performed, while, if it is located in the rectangular area of the playing field, a rotation is performed.\\
 		The instance of movement draw is necessary to get the correct coordinates of the components and to refresh the screen when an action on the grid is performed.\\
 		
 		\item[-] The \textbf{Game class} creates the instances of Input Manager, Movement Draw and Grid. It stores the score and updates it at every iteration.\\
@@ -90,11 +90,15 @@
 \input{int.tex}
 
 \newpage
-\section{Issues and future possible implementation}
+\section{Future possible implementation}
 % problems/possible future impl:
 %	- the levels and the growing speed of the fall
 %	- the probability of the blocks
 %	- the more performant draw of the screen
+	We wanted to point out that our Tetris implementation works on the board with the rules presented in the second section.\\
+	Even if the gameplay does not really differ from the classic game, it is missing the implementation of the different levels and the growing speed of the fall of the pieces. This can be considered a future possible implementation, that we did not consider crucial for the game.\\
+	Another future possible implementation can be the one regarding the probability of the block occurrence. The blocks are added randomly to the playing field and it can happen that the same piece type is added to the grid two or three times in a row. This can be improved by decreasing the chance of the block occurrence if a block of the same structure has just been added, so that blocks not recently added have a better chance to be chosen.\\
+	Moreover we have not handled any improvement in the drawing performance. It is not really important for the game experience, but, when there are several blocks to be drawn on the playing field, the display flickers a little bit. This could be fixed by managing the drawing of the blocks with a thread that refreshes more frequently the display.
 	
 \newpage
 \section{Software and tool used}

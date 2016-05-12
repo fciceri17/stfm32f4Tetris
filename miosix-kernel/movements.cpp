@@ -5,8 +5,14 @@ using namespace mxgui;
 using namespace miosix;
 using namespace std;
 
+/**
+*	Empty contructor.
+*/
 MovementDraw::MovementDraw(){}
 
+/**
+*	Contructor that initializes the grid and drawing context and sets the dimensions of the screen of the board.
+*/
 MovementDraw::MovementDraw(Grid* grid){
 	DrawingContext dc(Display::instance());
 	dispWidth = dc.getWidth()-1;
@@ -17,6 +23,9 @@ MovementDraw::MovementDraw(Grid* grid){
 	gr = grid;
 }
 
+/**
+*	This method draws the initial screen: a black screen with a text in the middle.
+*/
 void MovementDraw::drawStartingScreen(){
 	DrawingContext dc(Display::instance());
 	dc.clear(Point(0,0), Point(dispWidth, dispHeight), BLACK);
@@ -24,7 +33,7 @@ void MovementDraw::drawStartingScreen(){
 	dc.write(Point(dispWidth/14, dispHeight/2), "TAP ON THE SCREEN TO START THE GAME!"); // a mutex is locked until the game is started
 }
 
-/*
+/**
 * This method colours the rectangle inside the screen and the blocks contained in the blockSet.
 */
 void MovementDraw::drawGrid(){
@@ -37,12 +46,12 @@ void MovementDraw::drawGrid(){
 				int *memloc = (curr.getStructure()+4*z+i);
 				if(*memloc){
 					int x1,x2,y1,y2;
-					x1 = (i+1)*offset+20*curr.getX()+1;
-					x2 = (i+1)*offset+offset+20*curr.getX()+1;
-					if(x2>239)
-						x2=239;
-					y1 = (z)*offset+20*curr.getY()+topBar;
-					y2 = (z)*offset+offset-1+20*curr.getY()+topBar+1;
+					x1 = (i+1)*offset+offset*curr.getX()+1;
+					x2 = (i+1)*offset+offset+offset*curr.getX()+1;
+					if(x2>dispWidth)
+						x2=dispWidth; 
+					y1 = (z)*offset+offset*curr.getY()+topBar;
+					y2 = (z)*offset+offset-1+offset*curr.getY()+topBar+1;
 					dc.clear(Point(x1,y1), Point(x2,y2), curr.getColour());
 					dc.drawRectangle(Point(x1,y1), Point(x2,y2), Color(BLACK));
 				}
@@ -51,6 +60,9 @@ void MovementDraw::drawGrid(){
 	}
 }
 
+/**
+*	This method draws all the screen components: top bar, vertical bars and button.
+*/
 void MovementDraw::drawInit(){
 	DrawingContext dc(Display::instance());
 	Point pSx, pDx;
@@ -109,16 +121,16 @@ void MovementDraw::drawInit(){
 								Point(dispWidth/2*5/8-i+dispWidth/2-7,dispHeight-buttonHeight/2+7), Color(BLACK));
 }
 
-/*
-* This method colours the rectangle inside the screen.
+/**
+*	This method colours the rectangle inside the screen.
 */
 void MovementDraw::clearArea(){
 	DrawingContext dc(Display::instance());
 	dc.clear(Point(offset+1,topBar+1),Point(dispWidth-offset+1,dispHeight-buttonHeight),WHITE);
 }
 
-/*
-* This method updates the value of the score, showing it in the top bar.
+/**
+*	This method updates the value of the score, displaying it in the top bar.
 */
 void MovementDraw::updateScore(int score){
 	DrawingContext dc(Display::instance());
@@ -129,8 +141,8 @@ void MovementDraw::updateScore(int score){
 	dc.write(Point(dispWidth - dispWidth/4, 5), c);
 }
 
-/*
-* This method draws the shadow of the button when it is pressed.
+/**
+*	This method draws the shadow of the button according to the colour passed.
 */
 void MovementDraw::drawButton(int num, int colour){
 	DrawingContext dc(Display::instance());
@@ -143,6 +155,9 @@ void MovementDraw::drawButton(int num, int colour){
 	}
 }
 
+/**
+*	This method draws the game over screen with the game over blocks taken from the grid.
+*/
 void MovementDraw::drawGameOver(){
 	int x1,x2,y1,y2,j=0;
 	int *memloc;
@@ -172,7 +187,9 @@ void MovementDraw::drawGameOver(){
 	}
 }
 
-/* Getters */
+/**
+*	Getters
+*/
 int MovementDraw::getDispWidth(){
 	return dispWidth;
 }

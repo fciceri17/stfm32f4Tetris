@@ -17,13 +17,7 @@ class Game
 		int score;
 	
 	public:		
-		/**
-		*	Constructor, create a new game initializing input and graphic reference
-		*/
 		Game();		
-		/**
-		*	Start the game session
-		*/
 		void startGame();			
 };
 

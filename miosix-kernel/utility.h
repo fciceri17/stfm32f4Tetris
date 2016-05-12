@@ -19,8 +19,8 @@
 #define GRIDX 10
 #define GRIDY 13
 
-#define BUTTON1 1
-#define BUTTON2 2
+#define BUTTON1 1 // left button
+#define BUTTON2 2 // right button
 
 // colours
 #define BLACK 0
@@ -61,13 +61,18 @@ extern bool onEnd;
 class Utility
 {
 	public:
-		
+		/**
+		*	This method takes a number and returns the corresponding string.
+		*/
 		static string numberToString(int number){
 			 ostringstream s;
 			 s << number;
 			 return s.str();
 		}
-
+		
+		/**
+		*	This method takes a string and a number and change the string, padding num times 0 the content of the string.
+		*/
 		static void padTo(string &str, const size_t num){
 			const char paddingChar = '0';
 			if(num > str.size())

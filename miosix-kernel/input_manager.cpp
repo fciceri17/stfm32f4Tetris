@@ -3,20 +3,25 @@
 using namespace std;
 using namespace mxgui;
 
+/**
+*	Empty contructor.
+*/
 InputManager::InputManager(){
 	grid = NULL;
 	exit = false;
 }
 
+/**
+*	Constructor that initialize the grid and the movement draw elements.
+*/
 InputManager::InputManager(Grid * g, MovementDraw move){
 	grid = g;
 	exit = false;
 	md = move;
 }
 
-/*
-* The Game class calls this method when the game is over: exit set to true ends the while
-* cycle in the run and the thread of the game stops.
+/**
+*	This method sets exit to true, stops the thread execution and calls the movement draw game over function.
 */
 void InputManager::gameOver(){
 	exit = true;
@@ -24,18 +29,27 @@ void InputManager::gameOver(){
 	md.drawGameOver();
 }
 
+/**
+*	This method creates the thread that waits on the starting screen.
+*/
 void InputManager::waitTouch(){
-	pthread_create(&tmp,NULL,InputManager::doRun2,this);
+	pthread_create(&startThread,NULL,InputManager::doRunStartThread,this);
 }
 
-void *InputManager::doRun2(void *arg){
-	reinterpret_cast<InputManager*>(arg)->run2();
+/**
+*	This method is used for running the function of the start thread.
+*/
+void *InputManager::doRunStartThread(void *arg){
+	reinterpret_cast<InputManager*>(arg)->runStartThread();
 	return NULL;
 }
 
-void InputManager::run2(){
-	bool cc=false;
-	while(!cc){
+/**
+*	This method represents the start thread execution. It waits for a touch event and, when it is received, it signals the condition variable cv.
+*/
+void InputManager::runStartThread(){
+	bool touchReceived=false;
+	while(!touchReceived){
 		Event e = InputHandler::instance().popEvent();
 		switch(e.getEvent()){
 			case EventType::Default:
@@ -48,7 +62,7 @@ void InputManager::run2(){
 						Lock<Mutex> lck(inputMtx);
 						cv.signal();
 					}
-					cc=true;
+					touchReceived=true;
 				}
 				break;
 			default:
@@ -57,16 +71,16 @@ void InputManager::run2(){
 	}
 }
 
-/*
-* This method starts the thread execution and joins the tmp thread, not needed anymore.
+/**
+*	This method starts the thread execution and joins the start thread, not needed anymore.
 */
 void InputManager::startListening(){
-	pthread_join(tmp, NULL);
+	pthread_join(startThread, NULL);
 	pthread_create(&thread,NULL,InputManager::doRun,this);
 }
 
-/*
-* Dummy method that actually performs the run call.
+/**
+*	This method is used for running the function of the game thread.
 */
 void *InputManager::doRun(void *arg)
 {
@@ -74,12 +88,12 @@ void *InputManager::doRun(void *arg)
 	return NULL;
 }
 
-/*
-* This method represents the thread execution, where an event handled by an InputHandler is declared.
-* Actions are done according to the area pressed in the touch screen:
-* 	- translate right if right button is pressed
-* 	- translate left if left button is pressed
-*	- rotate the block if the rectangle is touched
+/**
+* This method represents the game thread execution. It waits for an event and performs different actions, according to the area
+* of the screen pressed:
+* 	- translate right if the touch is within the right button
+* 	- translate left if the touch is within the left button
+*	- rotate the block if the touch is within the rectangular area
 */
 void InputManager::run(){
 	while(!exit){
