@@ -6,7 +6,7 @@
 		structure of our grid we could compute every time we would need it in the program. With the way we designed it all, the only time we would need for the grid to be dynamically 
 		computed was when we were looking for collisions.
 	\subsection{Collision detection}
-		This is probably the most important backed function made. It is called every time a piece has to move, be it simple downward advancement, lateral movements or rotation. Fundamentally,
+		This is probably the most important backend method made. It is called every time a piece has to move, be it simple downward advancement, lateral movements or rotation. Fundamentally,
 		this method checks if the block in its new position will collide with any blocks in the already existing grid. Note that every time this method is called, it is preceded by the creation of a new 
 		block, and usually even by the removal of a block from the grid if it is being tested. \\
 		The way the method works is by first computing the "static" grid, matching it to an array of 1's and 0's. Consequently, it adds the "new" block to the grid, by summing it on top of the
@@ -35,17 +35,11 @@
 		moved by user inputs, while it is set to false the moment the row deletion checks begin. This makes it so that the blocks don't get moved or rotated into funky positions after they are placed into their 
 		final position.
 	\subsection{The Screen}
-		We decided to divide the screen into three main parts:
-		\begin{itemize}
-			\item the top section, which contains the score of the user
-			\item the middle section, which displays the game progress and is used as rotation button
-			\item the bottom section, which contains two buttons used for translating the blocks.
-		\end{itemize} 
 		In order to represent the different blocks we decided to draw them dynamically: we represent each block in a 4x4 integer (1, 0) matrix, so we can 
 		display them simply drawing every elementary part of the block (a small square).
 		In this way we are able to display all the blocks with only one function and also to draw text like the "Game Over" screen simply adding new type of blocks.
 		For displaying the left right arrow button we manually drew the arrow with the line function of MxGui then we surrounded them with a square to represent the border of the button.
 		We also drew another square which is displayed only when the button is pressed to graphically simulate the button pressed.
-		We decided to insert two side bar in order to adjust the dimension of the game grid and also to fit the original layout of the game.
+		We decided to insert two side bars in order to adjust the dimension of the game grid and also to fit the original layout of the game.
 	% To manage the imput we decide to use a separated thread from the pthread class in order to allaw the user to perform tranlsate and rotation while the main thread  handles the fall of the block and performs all of the checks like collision and delete row. The InputManager thread wait for the touch event and then perform the related action (translate dx, translate sx and rotate). To correctly interpretate wher the touch event happends, we check the top left and bottom right coordinates of every button with coordinates of the event so we can establish which botton has been pressed by the user. To manage concurrency between InputManager and main thread we used mutex of sync.h class from miosix kernel.
 	

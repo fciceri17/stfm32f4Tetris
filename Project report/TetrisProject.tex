@@ -42,17 +42,17 @@
 			\includegraphics[scale=0.7]{blocks.jpg}
 		\end{figure}
 		\\
-		A random sequence of pieces fall down the playing field and the objective of the game is to translate or rotate the pieces in order to create horizontal lines with no gaps (it is possible to delete more rows simultaneously). When the row is filled, it disappears and any block above gets translated down.\\
-		As the game progresses the pieces will not fall faster, as it happens in the classic Tetris game, and there is just one level.\\The game stops when the stack of pieces reaches the top and it is no more possible to add more. 
+		A random sequence of pieces falls down the playing field and the objective of the game is to translate or rotate the pieces in order to create horizontal lines with no gaps (it is possible to delete more rows simultaneously). When the row is filled, it disappears and any block above gets translated down.\\
+		As the game progresses the pieces will not fall faster, as in the classic Tetris game, and there is just one level.\\The game stops when the stack of pieces reaches the top and it is no longer possible to add more. 
 	\subsection{The game on the board}
 		Once the board is connected to power, it displays the starting screen: a touch is expected in order to start a new game.\\
-		The LCD display shows the game progress and the touchscreen allows to press the buttons drawn on the bottom of the display in order to translate the current piece or to press the rectangular area in order to rotate the current piece.\\
-		The bar at the top of the screen displays the score: 1 point is given when the piece is lied down and 10 points are given when a row is full and canceled.\\
-		When it is no more possible to add a new piece on the display, a game over screen will be shown.\\
+		The LCD display shows the game progress. The touchscreen allows pressing either the buttons drawn on the bottom of the display in order to translate the current piece or the rectangular game area in order to rotate the current piece.\\
+		The bar at the top of the screen displays the score: 1 point is given when the piece is placed down and 10 points are given when a row is full and cancelled.\\
+		When it is no longer possible to add a new piece on the display, a game over screen will be shown.\\
 		In order to start a new game it is necessary to press the reset button.
 \newpage
 \section{Structure of the program}
-	The program is composed of 5 classes, a main (these corresponds to the .cpp files) and 6 .h files.\\
+	The program is composed of 5 classes, a main (these corresponds to the .cpp files) and 6 header(.h) files.\\
 	\vspace{0.5cm}
 	\begin{figure}[h]
 		\centering
@@ -69,7 +69,7 @@
 		\item[-] The \textbf{Grid class} contains the vector of the blocks that are present in the grid at every iteration and the block composing the "game over" word.\\
 		The functions rotate, translate and deleteRow only check if the operation is possible, that is if it does not create a collision, and then call the homonym function of Block.\\
 		The addBlock function is the one that creates the blocks and adds them to the grid, it returns true if adding the block does not create a collision, false otherwise. The block is created by passing a random number to the constructor, using the HardwareRng class.\\
-		The canAddBlock function make the current piece fall down, by checking if the translation of one unit down is possible first, then performing it. The result of this check is the return value of the function.\\
+		The canAddBlock function makes the current piece fall down, by checking if the translation of one unit down is possible first, then performing it. The result of this check is the return value of the function.\\
 		\item[-] The \textbf{Movement Draw class} is the class that manages the graphic interface, storing the dimensions of the board and of the components, such as buttons and bars.\\
 		The drawStartingScreen draws a black screen with the text "TAP ON THE SCREEN TO START THE GAME!", while drawGameOver draws the ending screen with the "GAME OVER" words written with blocks.\\
 		The drawInit delineates the color and the position of the display components: the top bar, the buttons, the arrows in the buttons, the lateral bars and the rectangle of the playing field.\\
@@ -90,12 +90,13 @@
 \input{int.tex}
 
 \newpage
-\section{Future possible implementation}
+\section{Future possible implementations}
 % problems/possible future impl:
 %	- the levels and the growing speed of the fall
 %	- the probability of the blocks
 %	- the more performant draw of the screen
 	We wanted to point out that our Tetris implementation works on the board with the rules presented in the second section.\\
+	Even if the gameplay does not really differ from the classic game, it is missing the implementation of the different levels and the growing speed of the fall of the pieces. This can be considered a future possible implementation, that we did not consider crucial for the game.\\
 	Even if the gameplay does not really differ from the classic game, it is missing the implementation of the different levels and the growing speed of the fall of the pieces. This can be considered a future possible implementation, that we did not consider crucial for the game.\\
 	Another future possible implementation can be the one regarding the probability of the block occurrence. The blocks are added randomly to the playing field and it can happen that the same piece type is added to the grid two or three times in a row. This can be improved by decreasing the chance of the block occurrence if a block of the same structure has just been added, so that blocks not recently added have a better chance to be chosen.\\
 	Moreover we have not handled any improvement in the drawing performance. It is not really important for the game experience, but, when there are several blocks to be drawn on the playing field, the display flickers a little bit. This could be fixed by managing the drawing of the blocks with a thread that refreshes more frequently the display.
