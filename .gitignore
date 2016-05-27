@@ -17,7 +17,6 @@
 /Project report/*.bbl
 /Project report/*.blg
 /Project report/*.log
-/Project report/*.pdf
 /Project report/*.toc
 /Project report/*.aux
 /Project report/*.gz
