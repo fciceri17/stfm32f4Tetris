@@ -34,15 +34,15 @@ vector<Block> Grid::getBlocks(){
 */
 vector<Block> Grid::getGameOverBlocks(){		
 	Block g('G'), a('A'), m('M'), e('E'), o('O'), v('V'), r('R');
-	blockss.push_back(g);
-	blockss.push_back(a);
-	blockss.push_back(m);
-	blockss.push_back(e);
-	blockss.push_back(o);
-	blockss.push_back(v);
-	blockss.push_back(e);
-	blockss.push_back(r);
-	return blockss;
+	gameOverBlocks.push_back(g);
+	gameOverBlocks.push_back(a);
+	gameOverBlocks.push_back(m);
+	gameOverBlocks.push_back(e);
+	gameOverBlocks.push_back(o);
+	gameOverBlocks.push_back(v);
+	gameOverBlocks.push_back(e);
+	gameOverBlocks.push_back(r);
+	return gameOverBlocks;
 }
 
 /**
@@ -75,7 +75,7 @@ bool Grid::canAddBlock(){
 void  Grid::rotate(){
 	Block last = blocks.back();
 	blocks.pop_back();
-	Block tmp = Block(last);
+	Block tmp=last;
 	tmp.rotate();
 	if(collision(tmp)){
 		blocks.push_back(last);	
@@ -91,7 +91,7 @@ void  Grid::rotate(){
 void Grid::translate(int dir){
 	Block last = blocks.back();
 	blocks.pop_back();
-	Block tmp = Block(last);
+	Block tmp = last;
 	tmp.translate(dir);
 	if(collision(tmp)){
 		blocks.push_back(last);	

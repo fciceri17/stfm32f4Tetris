@@ -7,10 +7,7 @@ ConditionVariable cv;
 /**
 *	Constructor that creates the grid, the movement draw and the input manager elements and initializes the score.
 */
-Game::Game(){
-	grid = Grid();
-	md = MovementDraw(&grid);
-	in = InputManager(&grid,md);
+Game::Game() : md(&grid), in(&grid,&md) {
 	score = 0;
 }
 

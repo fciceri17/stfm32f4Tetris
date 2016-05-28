@@ -11,7 +11,7 @@ using namespace mxgui;
 class MovementDraw
 {
 	private:
-		Grid* gr;
+		Grid * gr;
 		int dispWidth;
 		int dispHeight;
 		int topBar;
@@ -21,7 +21,7 @@ class MovementDraw
 	
 	public:
 		MovementDraw();	
-		MovementDraw(Grid* gr);
+		MovementDraw(Grid * gr);
 		void drawGrid();
 		void drawInit();
 		void buttonPress(int ID);

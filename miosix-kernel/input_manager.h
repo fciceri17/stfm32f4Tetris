@@ -13,7 +13,7 @@ class InputManager
 	private:
 		pthread_t thread, startThread;
 		Grid* grid;
-		MovementDraw md;
+		MovementDraw *md;
 		bool exit;
 		void run();
 		void runStartThread();
@@ -22,7 +22,7 @@ class InputManager
 		
 	public:
 		InputManager();
-		InputManager(Grid* g,MovementDraw move);
+		InputManager(Grid *g,MovementDraw *move);
 		void waitTouch();
 		void startListening();
 		void gameOver();

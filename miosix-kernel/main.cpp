@@ -5,6 +5,6 @@ using namespace miosix;
 
 ENTRY()
 {
-	Game g = Game();
+	Game g;
 	g.startGame();
 }

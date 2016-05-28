@@ -1,5 +1,5 @@
-#ifndef GAME
-#define	GAME
+#ifndef GAME_H
+#define	GAME_H
 
 #include "movements.h"
 #include "grid.h"
@@ -11,9 +11,9 @@ using namespace std;
 class Game
 {
 	private:
-		InputManager in;
-		MovementDraw md;
 		Grid grid;
+		MovementDraw md;
+		InputManager in;
 		int score;
 	
 	public:		
@@ -21,4 +21,4 @@ class Game
 		void startGame();			
 };
 
-#endif //GAME
+#endif //GAME_H

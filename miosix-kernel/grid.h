@@ -14,7 +14,7 @@ class Grid
 {
 	private:
 		vector <Block> blocks;
-		vector<Block> blockss;
+		vector<Block> gameOverBlocks;
 		bool collision(Block newBlock);
 	public: 
 		Grid();
